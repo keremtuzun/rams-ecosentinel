@@ -3,6 +3,7 @@ import logging
 import subprocess
 import sys
 import time
+from sqlalchemy.exc import SQLAlchemyError
 
 from ecosentinel.common import ARTIFACTS, DataUnavailable, TransientDataUnavailable
 from ecosentinel.geometry import AnalysisRequest
@@ -40,7 +41,14 @@ def run_worker(once=False):
     queue = Queue()
     queue.migrate()
     while True:
-        claimed = queue.claim()
+        try:
+            claimed = queue.claim()
+        except SQLAlchemyError:
+            logger.warning(json.dumps({"event": "job_database_unavailable"}))
+            if once:
+                raise DataUnavailable("Job database is unavailable") from None
+            time.sleep(2)
+            continue
         if not claimed:
             if once:
                 return
@@ -49,19 +57,25 @@ def run_worker(once=False):
         job_id, owner, _ = claimed
         logger.info(json.dumps({"event": "job_started", "job_id": job_id}))
         try:
-            completed = subprocess.run(
-                [sys.executable, "-m", "ecosentinel.cli", "process-job", job_id, owner],
-                timeout=900,
-                check=False,
-            )
-            if completed.returncode:
-                queue.retry(job_id, owner, "Worker process exited before completion")
-        except subprocess.TimeoutExpired:
             try:
+                completed = subprocess.run(
+                    [sys.executable, "-m", "ecosentinel.cli", "process-job", job_id, owner],
+                    timeout=900,
+                    check=False,
+                )
+                if completed.returncode:
+                    queue.retry(job_id, owner, "Worker process exited before completion")
+            except subprocess.TimeoutExpired:
                 queue.finish(job_id, owner, "failed", "Analysis exceeded the 15 minute execution limit")
-            except OwnershipLost:
-                pass
+            except OSError:
+                queue.retry(job_id, owner, "Worker process could not start")
         except OwnershipLost:
             pass  # Completion may have been committed before the child exited.
+        except SQLAlchemyError:
+            # Do not acknowledge unknown completion or disclose driver diagnostics.
+            # The existing lease/retry bound will recover the job after reconnect.
+            logger.warning(json.dumps({"event": "job_database_unavailable", "job_id": job_id}))
+            if once:
+                raise DataUnavailable("Job database is unavailable") from None
         if once:
             return

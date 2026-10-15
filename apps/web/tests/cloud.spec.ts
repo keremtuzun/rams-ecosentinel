@@ -1,10 +1,12 @@
 import { expect, test } from "@playwright/test";
+import { createServer } from "node:http";
 import {
   CloudError,
   getSession,
   processCloudStage,
   cloudJob,
   reserveQuota,
+  backendRpc,
   type CloudState,
   type CloudPorts,
   type StageMessage,
@@ -87,6 +89,83 @@ test("duplicate delivery repairs dispatch without computing twice", async () => 
   expect(f.calls).toBe(1);
   expect(f.sent.map((x) => x.stage)).toEqual(["after", "after"]);
 });
+
+for (const fault of ["timeout", "connection-reset"]) {
+  test(`real isolated RPC ${fault} retains ownership and retries without duplicate compute`, async () => {
+    const f = fixture();
+    let received = 0;
+    const server = createServer((request, response) => {
+      let body = "";
+      request.on("data", (chunk) => {
+        body += chunk;
+      });
+      request.on("end", () => {
+        const payload = JSON.parse(body);
+        received++;
+        if (received === 1) {
+          if (fault === "connection-reset") response.destroy();
+          return; // Accepted request; timeout fixture deliberately never replies.
+        }
+        const prefix = `analysis/${payload.session}/${payload.id}/${payload.owner}`;
+        response.setHeader("Content-Type", "application/json");
+        response.end(
+          JSON.stringify({
+            ok: true,
+            result: {
+              data: {
+                path: prefix + "/observation.npz",
+                sha256: "0".repeat(64),
+                size: 1,
+              },
+              metadata: {
+                path: prefix + "/observation.json",
+                sha256: "0".repeat(64),
+                size: 1,
+              },
+            },
+          }),
+        );
+      });
+    });
+    await new Promise<void>((resolve) =>
+      server.listen(0, "127.0.0.1", resolve),
+    );
+    const address = server.address() as { port: number };
+    const previousUrl = process.env.ECOSENTINEL_BACKEND_URL;
+    const previousToken = process.env.ECOSENTINEL_BACKEND_TOKEN;
+    const originalTimeout = AbortSignal.timeout;
+    process.env.ECOSENTINEL_BACKEND_URL = `http://127.0.0.1:${address.port}`;
+    process.env.ECOSENTINEL_BACKEND_TOKEN = "isolated-rpc-fixture-only";
+    AbortSignal.timeout = () => originalTimeout(300); // Test clock only; production stays 270 seconds.
+    f.ports.rpc = backendRpc;
+    try {
+      await expect(processCloudStage(f.message, f.ports)).rejects.toThrow();
+      expect(received).toBe(1);
+      expect(f.state.status).toBe("running");
+      await expect(processCloudStage(f.message, f.ports)).rejects.toThrow(
+        "leased",
+      );
+      expect(received).toBe(1);
+      f.replace({
+        ...f.state,
+        lease: { owner: "expired-test-owner", until: 0 },
+      });
+      await processCloudStage(f.message, f.ports);
+      expect(received).toBe(2);
+      expect(f.state.stage).toBe("after");
+      expect(f.sent).toHaveLength(1);
+    } finally {
+      AbortSignal.timeout = originalTimeout;
+      if (previousUrl === undefined) delete process.env.ECOSENTINEL_BACKEND_URL;
+      else process.env.ECOSENTINEL_BACKEND_URL = previousUrl;
+      if (previousToken === undefined)
+        delete process.env.ECOSENTINEL_BACKEND_TOKEN;
+      else process.env.ECOSENTINEL_BACKEND_TOKEN = previousToken;
+      server.closeAllConnections();
+      await new Promise<void>((resolve) => server.close(() => resolve()));
+    }
+  });
+}
 
 test("a queued record survives lost admission dispatch and is re-enqueued without a new job", async () => {
   const f = fixture();

@@ -175,3 +175,49 @@ def test_additive_migration_preserves_old_rows(queue, monkeypatch, tmp_path):
     record = queue.get(job_id)
     assert record["status"] == "queued" and record["result_owner"] is None
     assert record["request"] == json.loads(json.dumps(request()))
+
+
+def test_worker_survives_database_disconnect_without_logging_credentials(
+    queue, monkeypatch, tmp_path, caplog
+):
+    from sqlalchemy.exc import OperationalError
+
+    worker = configure(queue, monkeypatch, tmp_path)
+    job_id = queue.submit(request())
+    original_claim = queue.claim
+    attempts = []
+
+    def disconnect_then_recover():
+        attempts.append(1)
+        if len(attempts) == 1:
+            raise OperationalError("fixture", {}, Exception("PRIVATE_DATABASE_SECRET"))
+        if len(attempts) == 3:
+            raise StopIteration("end isolated worker test")
+        return original_claim()
+
+    def completed(command, **kwargs):
+        queue.finish(command[-2], command[-1], "succeeded")
+        return subprocess.CompletedProcess(command, 0)
+
+    monkeypatch.setattr(queue, "claim", disconnect_then_recover)
+    monkeypatch.setattr(worker.subprocess, "run", completed)
+    monkeypatch.setattr(worker.time, "sleep", lambda seconds: None)
+    with pytest.raises(StopIteration, match="end isolated"):
+        worker.run_worker()
+    assert queue.get(job_id)["status"] == "succeeded"
+    assert "PRIVATE_DATABASE_SECRET" not in caplog.text
+
+
+def test_child_launch_failure_is_bounded(queue, monkeypatch, tmp_path):
+    worker = configure(queue, monkeypatch, tmp_path)
+    job_id = queue.submit(request())
+
+    def failed_launch(*args, **kwargs):
+        raise OSError("PRIVATE_PROCESS_DIAGNOSTIC")
+
+    monkeypatch.setattr(worker.subprocess, "run", failed_launch)
+    for status in ["queued", "failed"]:
+        worker.run_worker(once=True)
+        assert queue.get(job_id)["status"] == status
+    assert queue.get(job_id)["attempts"] == 2
+    assert "PRIVATE_PROCESS_DIAGNOSTIC" not in queue.get(job_id)["error"]
