@@ -302,14 +302,20 @@ export async function processCloudStage(
     });
 }
 
-async function reserveQuota(id: string, session: string) {
+type QuotaState = { ids: string[]; sessions: Record<string, number> };
+type QuotaPorts = {
+  read: (key: string) => Promise<{ body: QuotaState; etag: string } | null>;
+  write: (key: string, body: QuotaState, etag?: string) => Promise<string>;
+};
+export async function reserveQuota(
+  id: string,
+  session: string,
+  ports: QuotaPorts = { read: jsonBlob<QuotaState>, write: writeBlob },
+) {
   const hour = new Date().toISOString().slice(0, 13),
     key = `limits/${hour}.json`;
   for (let attempt = 0; attempt < 4; attempt++) {
-    const current = await jsonBlob<{
-        ids: string[];
-        sessions: Record<string, number>;
-      }>(key),
+    const current = await ports.read(key),
       value = current?.body || { ids: [], sessions: {} };
     if (value.ids.includes(id)) return;
     if (value.ids.length >= 8 || (value.sessions[session] || 0) >= 3)
@@ -318,7 +324,7 @@ async function reserveQuota(id: string, session: string) {
         429,
       );
     try {
-      await writeBlob(
+      await ports.write(
         key,
         {
           ids: [...value.ids, id],
@@ -402,9 +408,40 @@ export async function cloudJobs(session: string | null) {
     .slice(0, 20)
     .map(publicJob);
 }
-export async function cloudJob(session: string | null, id: string) {
+export async function cloudJob(
+  session: string | null,
+  id: string,
+  ports: CloudPorts = defaultPorts,
+) {
   if (!session) return null;
-  const result = await jsonBlob<CloudState>(keyOf(session, id));
+  const key = keyOf(session, id);
+  const result = await ports.read(key);
+  if (result && ["queued", "running"].includes(result.body.status)) {
+    const state = result.body;
+    const age = Date.now() - Date.parse(state.created_at);
+    if (age >= 86400000 && (!state.lease || state.lease.until <= Date.now())) {
+      const failed: CloudState = {
+        ...state,
+        status: "failed",
+        lease: undefined,
+        error: "İşlem kuyrukta süre sınırını aştı. Yeniden analiz başlatın.",
+        updated_at: new Date().toISOString(),
+      };
+      await ports.write(key, failed, result.etag);
+      return publicJob(failed);
+    }
+    // Admission can commit before send() fails (or its response is lost).
+    // Reuse the stage's idempotency key; never admit a second expensive job.
+    if (state.status === "queued" && state.attempts === 0 && age >= 30000) {
+      try {
+        await ports.enqueue({ id, session, stage: state.stage });
+      } catch {
+        console.error(
+          JSON.stringify({ event: "queue_recovery_pending", job_id: id }),
+        );
+      }
+    }
+  }
   return result ? publicJob(result.body) : null;
 }
 export async function cloudFile(

@@ -25,6 +25,7 @@ import {
   comparisonWindows,
   comparisonDateError,
   shiftYear,
+  todayUTC,
 } from "../lib/dates";
 const ResearchMap = dynamic(() => import("../components/ResearchMap"), {
   ssr: false,
@@ -118,6 +119,7 @@ export default function Workspace() {
   }
   function choosePlace(place: (typeof places)[number]) {
     selectionVersion.current++;
+    setDraw(false);
     const lat = 0.0225,
       lon = 0.0225 / Math.cos((place.latitude * Math.PI) / 180);
     setGeometry(
@@ -140,6 +142,11 @@ export default function Workspace() {
   }
   function applyJob(next: Job, allRegions: Region[]) {
     setJob(next);
+    setError(
+      next.status === "failed"
+        ? simpleError(next.error || "Analysis failed")
+        : "",
+    );
     setLocationName(
       typeof next.request.display_name === "string"
         ? next.request.display_name
@@ -165,6 +172,7 @@ export default function Workspace() {
   }
   useEffect(() => {
     let mounted = true;
+    const version = selectionVersion.current;
     const health = api<{ analysis_available?: boolean }>("/health")
       .then((h) => {
         if (mounted) setAnalysisAvailable(h.analysis_available !== false);
@@ -180,14 +188,13 @@ export default function Workspace() {
         if (!mounted) return;
         setRegions(r);
         setJobs(list);
-        const completed =
-          list.find((j) => ["queued", "running"].includes(j.status)) ||
-          list
-            .filter((j) => j.status === "succeeded")
-            .sort((a, b) => b.created_at.localeCompare(a.created_at))[0];
+        const completed = [...list].sort((a, b) =>
+          b.created_at.localeCompare(a.created_at),
+        )[0];
         if (completed) {
           const next = await api<Job>(`/api/jobs/${completed.id}`);
-          if (mounted) applyJob(next, r);
+          if (mounted && version === selectionVersion.current)
+            applyJob(next, r);
         }
       })
       .catch((e) => {
@@ -217,8 +224,11 @@ export default function Workspace() {
           .then((next) => {
             if (!mounted) return;
             setJob(next);
-            if (next.status === "failed")
-              setError(simpleError(next.error || "Analysis failed"));
+            setError(
+              next.status === "failed"
+                ? simpleError(next.error || "Analysis failed")
+                : "",
+            );
             if (["failed", "succeeded"].includes(next.status))
               api<Job[]>("/api/jobs")
                 .then((list) => {
@@ -265,7 +275,7 @@ export default function Workspace() {
   }
   async function submit(region?: Region) {
     if (!analysisAvailable || active) return;
-    if (!region && draw) {
+    if (draw) {
       setError("Önce haritadaki alan çizimini bitirin veya Vazgeç’e dokunun.");
       return;
     }
@@ -275,8 +285,16 @@ export default function Workspace() {
       setError(boundaryError);
       return;
     }
-    if (!region) {
-      const dateError = comparisonDateError(dates);
+    const windows = region
+      ? {
+          before_start: region.before[0],
+          before_end: region.before[1],
+          after_start: region.after[0],
+          after_end: region.after[1],
+        }
+      : dates;
+    {
+      const dateError = comparisonDateError(windows);
       if (dateError) {
         setError(dateError);
         return;
@@ -289,19 +307,13 @@ export default function Workspace() {
     setInspection("");
     setFireData(null);
     setJob(null);
-    const windows = region
-      ? {
-          before_start: region.before[0],
-          before_end: region.before[1],
-          after_start: region.after[0],
-          after_end: region.after[1],
-        }
-      : dates;
     if (region) {
       setSelected(region.id);
       setGeometry(footprint);
       setDates(windows);
     }
+    const submittedAt = Date.now();
+    let createdId: string | undefined;
     try {
       const created = await api<Job>("/api/jobs", {
         geometry: footprint,
@@ -309,10 +321,31 @@ export default function Workspace() {
         module: "habitat",
         display_name: region ? regionName(region.id) : selectedName,
       });
+      createdId = created.id;
       setJob(created);
       setJobs(await api<Job[]>("/api/jobs"));
     } catch (e) {
       setError(simpleError((e as Error).message));
+      // A lost response can follow durable admission. Refresh history instead
+      // of automatically posting another expensive analysis.
+      try {
+        const list = await api<Job[]>("/api/jobs");
+        setJobs(list);
+        const pending = list.find(
+          (j) =>
+            j.id === createdId ||
+            (["queued", "running"].includes(j.status) &&
+              Date.parse(j.created_at) >= submittedAt - 1000 &&
+              JSON.stringify(j.request.geometry) ===
+                JSON.stringify(footprint) &&
+              Object.entries(windows).every(
+                ([key, value]) => j.request[key] === value,
+              )),
+        );
+        if (pending) setJob(pending);
+      } catch {
+        /* Keep the original failure visible. */
+      }
     } finally {
       setBusy(false);
     }
@@ -345,6 +378,11 @@ export default function Workspace() {
   async function discover() {
     if (draw) {
       setError("Önce haritadaki alan çizimini bitirin veya Vazgeç’e dokunun.");
+      return;
+    }
+    const dateError = comparisonDateError(dates);
+    if (dateError) {
+      setError(dateError);
       return;
     }
     setBusy(true);
@@ -508,7 +546,11 @@ export default function Workspace() {
                   </button>
                   <div className="place-results">
                     {places.map((place) => (
-                      <button key={place.id} onClick={() => choosePlace(place)}>
+                      <button
+                        key={place.id}
+                        disabled={active}
+                        onClick={() => choosePlace(place)}
+                      >
                         {place.name}
                         <small>{place.admin1}</small>
                       </button>
@@ -577,6 +619,14 @@ export default function Workspace() {
               onToggle={(e) => {
                 const opened = e.currentTarget.open;
                 setNewAnalysis(opened);
+                if (opened && !active && analysisAvailable) {
+                  selectionVersion.current++;
+                  setJob(null);
+                  setCatalog(null);
+                  setInspection("");
+                  setFireData(null);
+                  setError("");
+                }
                 if (opened && dates.after_end && comparisonDateError(dates))
                   setDates(
                     comparisonWindows(
@@ -602,6 +652,7 @@ export default function Workspace() {
                     </p>
                     <div className="draw-buttons">
                       <button
+                        disabled={active}
                         aria-pressed={draw && drawMode === "rectangle"}
                         onClick={() => {
                           setDrawMode("rectangle");
@@ -611,6 +662,7 @@ export default function Workspace() {
                         ▱ Alan çiz
                       </button>
                       <button
+                        disabled={active}
                         aria-pressed={draw && drawMode === "polygon"}
                         onClick={() => {
                           setDrawMode("polygon");
@@ -629,6 +681,8 @@ export default function Workspace() {
                         type="date"
                         aria-label="Önceki tarih"
                         min="2017-01-01"
+                        max={todayUTC()}
+                        disabled={active}
                         value={dates.before_end}
                         onChange={(e) => chooseDate("before", e.target.value)}
                       />
@@ -639,6 +693,8 @@ export default function Workspace() {
                         type="date"
                         aria-label="Sonraki tarih"
                         min="2017-01-01"
+                        max={todayUTC()}
+                        disabled={active}
                         value={dates.after_end}
                         onChange={(e) => chooseDate("after", e.target.value)}
                       />
@@ -649,7 +705,7 @@ export default function Workspace() {
                     </p>
                     <details className="small-details">
                       <summary>Tam tarih aralığı</summary>
-                      <fieldset>
+                      <fieldset disabled={active}>
                         <legend>Önceki dönem</legend>
                         <div className="date-inputs">
                           <input
@@ -673,7 +729,7 @@ export default function Workspace() {
                           />
                         </div>
                       </fieldset>
-                      <fieldset>
+                      <fieldset disabled={active}>
                         <legend>Sonraki dönem</legend>
                         <div className="date-inputs">
                           <input
@@ -824,7 +880,10 @@ export default function Workspace() {
                 job={job}
                 draw={draw}
                 drawMode={drawMode}
-                onCancelDraw={() => setDraw(false)}
+                onCancelDraw={() => {
+                  setDraw(false);
+                  setError("");
+                }}
                 onGeometry={(g) => {
                   setError("");
                   selectionVersion.current++;

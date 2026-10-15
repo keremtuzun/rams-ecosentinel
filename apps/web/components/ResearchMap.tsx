@@ -114,7 +114,9 @@ export default function ResearchMap(props: Props) {
       new maplibregl.NavigationControl({ showCompass: false }),
       "top-right",
     );
-    m.on("load", () => {
+    // Interaction layers need the style, not the external raster tile network.
+    // Waiting for map.load loses early drawing input on slow/offline basemaps.
+    m.once("style.load", () => {
       m.addSource("aoi", {
         type: "geojson",
         data: { type: "FeatureCollection", features: [] },

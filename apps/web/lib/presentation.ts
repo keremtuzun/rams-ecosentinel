@@ -54,6 +54,14 @@ export function observationDateLabel(source: Source) {
 }
 export function simpleError(message: string) {
   if (
+    /Satellite catalogue unavailable|Satellite imagery could not be read/i.test(
+      message,
+    )
+  )
+    return "Uydu sağlayıcısına bağlanılamadı. Biraz sonra tekrar deneyin; tarihleri değiştirmeniz gerekmeyebilir.";
+  if (/Cloud processing failed|iki denemede/i.test(message))
+    return "Analiz sunucusu işlemi tamamlayamadı. Biraz sonra yeniden deneyin; sorun sürerse daha küçük alan seçin.";
+  if (
     /valid, nonempty Polygon|Invalid GeoJSON|invalid.*polygon|self.intersect/i.test(
       message,
     )
@@ -95,7 +103,11 @@ export function simpleError(message: string) {
     return "Yangın gözlemleri şu anda kullanılamıyor.";
   if (/backend|inference.*require/i.test(message))
     return "Yeni analiz şu anda kullanılamıyor. Hazır sonuçları açabilirsiniz.";
-  if (/Failed to fetch|unavailable|offline|fetch failed/i.test(message))
+  if (
+    /Failed to fetch|unavailable|offline|fetch failed|Invalid server response|NetworkError/i.test(
+      message,
+    )
+  )
     return "Bağlantı kurulamadı. Biraz sonra tekrar deneyin.";
   return "İşlem tamamlanamadı. Seçiminizi kontrol edip tekrar deneyin.";
 }

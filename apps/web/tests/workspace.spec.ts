@@ -197,6 +197,149 @@ test("reload opens the latest created analysis even for an earlier observation d
     }),
   ).toBeVisible();
 });
+
+test("reload preserves the latest failure instead of displaying an older success", async ({
+  page,
+}) => {
+  const records = [
+    {
+      id: "latest-failed",
+      status: "failed",
+      created_at: "2026-10-15T10:00:00Z",
+      request: { display_name: "Son deneme" },
+      error: "No acceptable satellite observation",
+    },
+    {
+      id: "older-success",
+      status: "succeeded",
+      created_at: "2026-10-14T10:00:00Z",
+      request: { display_name: "Eski sonuç" },
+    },
+  ];
+  await page.route("**/api/jobs", (r) => r.fulfill({ json: records }));
+  await page.route(/\/api\/jobs\/(latest-failed|older-success)$/, (r) =>
+    r.fulfill({ json: records.find((j) => r.request().url().endsWith(j.id)) }),
+  );
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", { name: "Son deneme", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".error[role=alert]")).toContainText(
+    "uygun uydu görüntüsü yok",
+  );
+});
+
+test("an initial history request cannot overwrite a newer place selection", async ({
+  page,
+}) => {
+  let release!: () => void;
+  const barrier = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route("**/api/jobs", async (r) => {
+    await barrier;
+    await r.fulfill({
+      json: [
+        {
+          id: "slow-initial",
+          status: "succeeded",
+          created_at: "2026-10-14T10:00:00Z",
+          request: {},
+        },
+      ],
+    });
+  });
+  await page.route("**/api/jobs/slow-initial", (r) =>
+    r.fulfill({
+      json: {
+        id: "slow-initial",
+        status: "succeeded",
+        request: { display_name: "Eski sonuç" },
+      },
+    }),
+  );
+  await page.route("**/api/places?*", (r) =>
+    r.fulfill({
+      json: {
+        places: [{ id: 1, name: "Ankara", latitude: 39.92, longitude: 32.85 }],
+      },
+    }),
+  );
+  await page.goto("/");
+  await page.getByLabel("Bölge ara").fill("Ankara");
+  await page.getByRole("button", { name: "Haritada ara", exact: true }).click();
+  await page.getByRole("button", { name: "Ankara", exact: true }).click();
+  release();
+  await expect(page.locator(".header-meta")).toContainText("Analiz açık");
+  await expect(
+    page.getByRole("heading", { name: "Ankara", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Eski sonuç", exact: true }),
+  ).toHaveCount(0);
+});
+
+test("a lost admission response recovers the recorded job without a second POST", async ({
+  page,
+}) => {
+  let recorded: Record<string, unknown> | undefined;
+  let posts = 0;
+  await page.route("**/api/jobs", async (route) => {
+    if (route.request().method() === "GET")
+      return route.fulfill({ json: recorded ? [recorded] : [] });
+    posts++;
+    recorded = {
+      id: "recorded-after-timeout",
+      status: "queued",
+      created_at: new Date().toISOString(),
+      request: route.request().postDataJSON(),
+    };
+    return route.fulfill({
+      status: 503,
+      json: {
+        detail:
+          "İşlem kaydedildi; gönderim doğrulanamadı. Geçmiş sonuçları kontrol edin.",
+      },
+    });
+  });
+  await page.route("**/api/jobs/recorded-after-timeout", (r) =>
+    r.fulfill({ json: recorded }),
+  );
+  await page.goto("/");
+  await page.locator(".new-analysis summary").click();
+  await page.getByRole("button", { name: "Analizi başlat" }).click();
+  await expect(page.locator(".execution-state")).toContainText("Analiz sırada");
+  await expect(page.getByLabel("Önceki tarih", { exact: true })).toBeDisabled();
+  expect(posts).toBe(1);
+});
+
+test("a recovered poll clears the temporary network warning", async ({
+  page,
+}) => {
+  let polls = 0;
+  await page.route("**/api/jobs/contract-test-job", (route) => {
+    polls++;
+    return polls === 1
+      ? route.fulfill({ status: 503, json: { detail: "Server unavailable" } })
+      : route.fulfill({
+          json: {
+            id: "contract-test-job",
+            status: "running",
+            stage: "before",
+            request: {},
+          },
+        });
+  });
+  await page.goto("/");
+  await page.locator(".new-analysis summary").click();
+  await page.getByRole("button", { name: "Analizi başlat" }).click();
+  await expect(page.locator(".error[role=alert]")).toContainText(
+    "Bağlantı kurulamadı",
+  );
+  await expect(page.locator(".error[role=alert]")).toHaveCount(0, {
+    timeout: 7000,
+  });
+});
 test("optional catalogue and thermal failures use plain Turkish", async ({
   page,
 }) => {
@@ -236,6 +379,34 @@ test("mobile drawing and layers work without horizontal overflow", async ({
     page.getByRole("button", { name: "Methods & evidence" }),
   ).toHaveCount(0);
   await expect(page.locator("html")).toHaveAttribute("lang", "tr");
+});
+
+test("drawing is ready while external basemap tiles are still pending", async ({
+  page,
+}) => {
+  let release!: () => void;
+  const barrier = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route("https://server.arcgisonline.com/**", async (route) => {
+    await barrier;
+    await route.abort();
+  });
+  try {
+    await page.goto("/");
+    await page.locator(".new-analysis summary").click();
+    await page.getByRole("button", { name: "Serbest çiz" }).click();
+    const canvas = page.locator(".maplibregl-canvas");
+    await expect(canvas).toHaveCSS("cursor", "crosshair");
+    await canvas.click({ position: { x: 150, y: 100 } });
+    await expect(page.locator(".draw-hint [role=status]")).toContainText(
+      "1 köşe",
+    );
+    await page.getByRole("button", { name: "Vazgeç", exact: true }).click();
+    await expect(page.locator(".draw-hint")).toHaveCount(0);
+  } finally {
+    release();
+  }
 });
 test("a crossing custom boundary stays editable and undo submits the corrected shape", async ({
   page,
@@ -376,4 +547,6 @@ test("completed comparison, adjacent terminology and valid CSV download", async 
   const pending = page.waitForEvent("download");
   await page.getByRole("link", { name: "Tablo (CSV)", exact: true }).click();
   expect((await pending).suggestedFilename()).toBe("contract.csv");
+  await page.locator(".new-analysis summary").click();
+  await expect(page.locator(".comparison")).toHaveCount(0);
 });

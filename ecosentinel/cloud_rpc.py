@@ -11,7 +11,7 @@ from uuid import UUID
 
 import numpy as np
 
-from ecosentinel.common import DataUnavailable, read_json, write_json
+from ecosentinel.common import DataUnavailable, TransientDataUnavailable, read_json, write_json
 from ecosentinel.geometry import AnalysisRequest
 from ecosentinel.raster import acquire_scene, joint_valid_mask, make_grid
 from ecosentinel.sources import search_sentinel
@@ -143,6 +143,8 @@ if __name__ == "__main__":
             raise ValueError("Request exceeds 16 KB")
         result = run(json.loads(raw))
         print(json.dumps({"ok": True, "result": result}, allow_nan=False))
+    except TransientDataUnavailable as exc:
+        print(json.dumps({"ok": False, "detail": str(exc), "retryable": True}))
     except (DataUnavailable, ValueError) as exc:
         print(json.dumps({"ok": False, "detail": str(exc)}))
     except Exception as exc:

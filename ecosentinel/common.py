@@ -22,6 +22,10 @@ class DataUnavailable(RuntimeError):
     """A required real observation or verified artifact is unavailable."""
 
 
+class TransientDataUnavailable(DataUnavailable):
+    """A bounded provider/storage request failed; a later attempt may succeed."""
+
+
 def utcnow():
     return datetime.now(timezone.utc).isoformat()
 

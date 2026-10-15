@@ -159,8 +159,9 @@ npm audit --audit-level=high
 
 Real-artifact integration tests skip explicitly in clean CI when ignored data/checkpoints
 are absent. UI contract tests use clearly labeled test-only API fixtures. Actual map and
-live-data checks were performed separately. The CI definition has not run remotely; this
-repository has no configured remote or publication.
+live-data checks are recorded separately. GitHub Actions runs the checked-in workflow on
+pushes and pull requests. See [docs/debug-verification.md](docs/debug-verification.md)
+for the current debugging evidence and remaining verification limits.
 
 ## Containers
 

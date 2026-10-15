@@ -14,7 +14,15 @@ from rasterio.vrt import WarpedVRT
 from rasterio.warp import transform_bounds
 from scipy.ndimage import binary_dilation
 
-from ecosentinel.common import PREPROCESSING, DataUnavailable, read_json, sha256, utcnow, write_json
+from ecosentinel.common import (
+    PREPROCESSING,
+    DataUnavailable,
+    TransientDataUnavailable,
+    read_json,
+    sha256,
+    utcnow,
+    write_json,
+)
 from ecosentinel.sources import covering_observations, provider_url
 
 
@@ -157,6 +165,7 @@ def acquire_scene(geometry, start, end, grid, directory):
         return bands, valid, meta
     candidates = covering_observations(geometry, start, end)
     failures = []
+    raster_failure = False
     for observation in candidates[:5]:
         try:
             area_mask = aoi_mask(geometry, grid)
@@ -239,8 +248,11 @@ def acquire_scene(geometry, start, end, grid, directory):
             write_json(cache, meta)
             return bands, valid, meta
         except (DataUnavailable, rasterio.errors.RasterioError) as exc:
+            raster_failure |= isinstance(exc, (rasterio.errors.RasterioError, TransientDataUnavailable))
             failures.append({"scene": [item["id"] for item in observation], "reason": str(exc)[:200]})
     write_json(directory / "failed_candidates.json", failures)
+    if raster_failure:
+        raise TransientDataUnavailable("Satellite imagery could not be read after bounded attempts")
     raise DataUnavailable("No acceptable covering Sentinel-2 observation; see failed_candidates.json")
 
 

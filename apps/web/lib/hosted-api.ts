@@ -51,11 +51,13 @@ export async function handleHostedApi(
 ): Promise<Response> {
   const cloud = cloudEnabled();
   if (cloud) {
+    let cookie: string | null = null;
     try {
       const session = getSession(
         request,
         path === "/health" || request.method === "POST",
       );
+      cookie = session.cookie;
       const respond = (response: Response) => {
         return privateResponse(response, session.cookie);
       };
@@ -156,11 +158,14 @@ export async function handleHostedApi(
           type: exc instanceof Error ? exc.name : "unknown",
         }),
       );
-      return error(
-        exc instanceof CloudError
-          ? exc.message
-          : "Analiz sunucusu şu anda kullanılamıyor",
-        exc instanceof CloudError ? exc.status : 503,
+      return privateResponse(
+        error(
+          exc instanceof CloudError
+            ? exc.message
+            : "Analiz sunucusu şu anda kullanılamıyor",
+          exc instanceof CloudError ? exc.status : 503,
+        ),
+        cookie,
       );
     }
   }

@@ -1,6 +1,6 @@
 import math
 from calendar import monthrange
-from datetime import date
+from datetime import date, datetime, timezone
 
 from pydantic import BaseModel, Field, model_validator
 from pyproj import Geod
@@ -45,7 +45,7 @@ class AnalysisRequest(BaseModel):
     def validate_request(self):
         validate_geometry(self.geometry)
         for start, end in [(self.before_start, self.before_end), (self.after_start, self.after_end)]:
-            if not date(2017, 1, 1) <= start <= end <= date.today():
+            if not date(2017, 1, 1) <= start <= end <= datetime.now(timezone.utc).date():
                 raise ValueError("Date ranges must be ordered, in the past, and start in 2017 or later")
             if (end - start).days > 62:
                 raise ValueError("Each scene-search window is limited to 62 days")

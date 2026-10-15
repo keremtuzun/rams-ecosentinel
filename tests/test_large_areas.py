@@ -36,6 +36,8 @@ def test_fifty_kilometre_boundary_is_enforced():
         ("2020-06-30", "2022-06-29", False),
         ("2020-06-30", "2022-06-30", True),
         ("2020-02-29", "2022-02-28", True),
+        ("2024-02-29", "2026-02-27", False),
+        ("2024-02-29", "2026-02-28", True),
     ],
 )
 def test_minimum_two_calendar_years(before, after, accepted):
@@ -52,6 +54,29 @@ def test_minimum_two_calendar_years(before, after, accepted):
     else:
         with pytest.raises(ValueError, match="at least two years"):
             AnalysisRequest.model_validate(payload)
+
+
+def test_past_date_cutoff_uses_utc_independently_of_server_timezone(monkeypatch):
+    from datetime import datetime, timezone
+    import ecosentinel.geometry as geometry
+
+    class Clock:
+        @staticmethod
+        def now(tz):
+            assert tz is timezone.utc
+            return datetime(2024, 7, 1, 0, 1, tzinfo=timezone.utc)
+
+    monkeypatch.setattr(geometry, "datetime", Clock)
+    payload = {
+        **request(),
+        "before_start": "2022-06-01",
+        "before_end": "2022-06-30",
+        "after_start": "2024-06-01",
+        "after_end": "2024-07-01",
+    }
+    AnalysisRequest.model_validate(payload)
+    with pytest.raises(ValueError, match="in the past"):
+        AnalysisRequest.model_validate({**payload, "after_end": "2024-07-02"})
 
 
 def fixture_scene(identifier, footprint, acquired):

@@ -79,7 +79,16 @@ export async function api<T>(path: string, body?: unknown): Promise<T> {
           body: JSON.stringify(body),
         },
   );
-  const result = await response.json();
+  let result;
+  try {
+    result = await response.json();
+  } catch {
+    throw new Error(
+      response.ok
+        ? "Invalid server response"
+        : `Server unavailable (${response.status})`,
+    );
+  }
   if (!response.ok) {
     const detail = result.detail;
     throw new Error(

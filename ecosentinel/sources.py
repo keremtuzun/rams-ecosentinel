@@ -11,7 +11,14 @@ from urllib.parse import urlparse
 import httpx
 from shapely.geometry import shape
 
-from ecosentinel.common import ARTIFACTS, DataUnavailable, sha256, utcnow, write_json
+from ecosentinel.common import (
+    ARTIFACTS,
+    DataUnavailable,
+    TransientDataUnavailable,
+    sha256,
+    utcnow,
+    write_json,
+)
 
 EARTH_SEARCH = "https://earth-search.aws.element84.com/v1"
 CDSE_STAC = "https://stac.dataspace.copernicus.eu/v1"
@@ -45,10 +52,10 @@ def request_json(method, url, **kwargs):
             return response.json()
         except (httpx.HTTPError, ValueError):
             if attempt == 2:
-                raise DataUnavailable(
+                raise TransientDataUnavailable(
                     "Satellite catalogue unavailable after three bounded attempts"
                 ) from None
-    raise DataUnavailable("Satellite catalogue unavailable")
+    raise TransientDataUnavailable("Satellite catalogue unavailable")
 
 
 def search_sentinel(geometry, start, end, cloud=20, catalog="earth-search"):

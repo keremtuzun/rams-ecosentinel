@@ -83,7 +83,7 @@ def compute(payload):
                     }
                 )
             )
-            return {"ok": False, "detail": "Cloud processing failed"}
+            return {"ok": False, "detail": "Cloud processing failed", "retryable": True}
         result = json.loads(completed.stdout)
         if not result.get("ok"):
             print(
@@ -97,13 +97,16 @@ def compute(payload):
             )
         return result
     except subprocess.TimeoutExpired:
-        return {"ok": False, "detail": "Analysis stage exceeded the server time limit"}
+        return {"ok": False, "detail": "Analysis stage exceeded the server time limit", "retryable": True}
     except Exception as exc:
         print(json.dumps({"event": "compute_rpc_failed", "type": type(exc).__name__}))
-        return {"ok": False, "detail": "Cloud processing failed"}
+        return {"ok": False, "detail": "Cloud processing failed", "retryable": True}
 
 
 @app.post("/rpc")
 async def rpc(request: Request):
     result = await asyncio.to_thread(compute, await request.json())
-    return JSONResponse(result, status_code=200 if result.get("ok") else 422)
+    # Unexpected child failures and timeouts are infrastructure failures. Only
+    # explicit validation/data rejections are terminal for the durable queue.
+    status = 200 if result.get("ok") else 503 if result.get("retryable") or result.get("type") else 422
+    return JSONResponse(result, status_code=status)

@@ -8,6 +8,39 @@ from ecosentinel.common import DataUnavailable, read_json, sha256, write_json
 from ecosentinel.raster import acquire_scene, make_grid, write_raster
 
 
+def test_catalogue_network_failure_is_retryable_without_exposing_upstream_details(monkeypatch):
+    import httpx
+    import ecosentinel.sources as sources
+    from ecosentinel.common import TransientDataUnavailable
+
+    def failure(*args, **kwargs):
+        raise httpx.ConnectError("private upstream diagnostic")
+
+    monkeypatch.setattr(sources.httpx, "request", failure)
+    monkeypatch.setattr(sources.time, "sleep", lambda *args: None)
+    with pytest.raises(TransientDataUnavailable, match="three bounded attempts") as caught:
+        sources.request_json("POST", sources.EARTH_SEARCH + "/search", json={})
+    assert "private upstream" not in str(caught.value)
+
+
+def test_raster_network_failure_is_distinct_from_real_quality_rejection(tmp_path, monkeypatch):
+    import ecosentinel.raster as raster
+    from ecosentinel.common import TransientDataUnavailable
+    from tests.test_large_areas import fixture_scene
+
+    geometry = mapping(box(28.23, 37.02, 28.25, 37.04))
+    scene = fixture_scene("network-fixture", box(28, 37, 29, 38), "2020-06-30T09:00:00Z")
+    monkeypatch.setattr(raster, "covering_observations", lambda *args: [[scene]])
+
+    def failure(*args, **kwargs):
+        raise raster.rasterio.errors.RasterioIOError("network fixture")
+
+    monkeypatch.setattr(raster, "read_aligned", failure)
+    with pytest.raises(TransientDataUnavailable, match="could not be read"):
+        acquire_scene(geometry, "2020-06-01", "2020-06-30", make_grid(geometry), tmp_path)
+    assert not (tmp_path / "scene.json").exists()
+
+
 def test_missing_observation_fails_with_record(tmp_path, monkeypatch):
     import ecosentinel.raster as raster
 
