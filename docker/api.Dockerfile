@@ -5,7 +5,7 @@ RUN pip install --no-cache-dir torch==2.9.1 --index-url https://download.pytorch
 COPY pyproject.toml /app/
 COPY ecosentinel /app/ecosentinel
 COPY scripts /app/scripts
-RUN pip install --no-cache-dir .
+RUN pip install --no-cache-dir '.[onnx]'
 RUN useradd --create-home --uid 10001 researcher && mkdir -p /app/artifacts && chown researcher /app/artifacts
 USER researcher
 ENV ECOSENTINEL_ARTIFACTS=/app/artifacts

@@ -62,14 +62,18 @@ jobs:
       - name: Review actual completed result and browser downloads
         run: node scripts/verify_real_browser.mjs review "$RUNNER_TEMP/job.json"
       - name: Collect only generated analysis outputs and encrypt them
+        if: always() && env.ECOSENTINEL_REAL_JOB_ID != ''
         env:
           OUTPUT_KEY: ${{ secrets.TEMP_ECOSENTINEL_OUTPUT_KEY }}
         run: |
           docker compose --env-file /dev/null cp api:/app/artifacts/real-verification "$RUNNER_TEMP/real-verification"
-          cp "$RUNNER_TEMP/job.json.desktop.png" "$RUNNER_TEMP/job.json.mobile.png" "$RUNNER_TEMP/real-verification/"
+          for picture in "$RUNNER_TEMP/job.json.desktop.png" "$RUNNER_TEMP/job.json.mobile.png"; do
+            if test -f "$picture"; then cp "$picture" "$RUNNER_TEMP/real-verification/"; fi
+          done
           python -m pip install cryptography
           python scripts/isolated_assets.py seal "$RUNNER_TEMP/real-verification" "$RUNNER_TEMP/real-analysis.aesgcm"
       - uses: actions/upload-artifact@v4
+        if: always() && env.ECOSENTINEL_REAL_JOB_ID != ''
         with:
           name: encrypted-real-analysis
           path: ${{ runner.temp }}/real-analysis.aesgcm
