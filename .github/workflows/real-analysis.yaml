@@ -1,0 +1,80 @@
+name: Opt-in real Sentinel ONNX Docker analysis
+on:
+  workflow_dispatch:
+    inputs:
+      model_bundle_sha256:
+        description: SHA-256 of the private verified model bundle
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  real-analysis:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      COMPOSE_PROJECT_NAME: ecosentinel-real-${{ github.run_id }}-${{ github.run_attempt }}
+      POSTGRES_PASSWORD: isolated-test-only
+      ECOSENTINEL_ISOLATED_MODEL: ${{ github.workspace }}/../private-model-${{ github.run_id }}
+      COMPOSE_FILE: compose.yaml:docker/compose.verify.yaml:docker/compose.real.yaml
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Restore only the checksum-pinned private model
+        env:
+          MODEL_PART_0: ${{ secrets.TEMP_ECOSENTINEL_MODEL_0 }}
+          MODEL_PART_1: ${{ secrets.TEMP_ECOSENTINEL_MODEL_1 }}
+          MODEL_PART_2: ${{ secrets.TEMP_ECOSENTINEL_MODEL_2 }}
+          MODEL_PART_3: ${{ secrets.TEMP_ECOSENTINEL_MODEL_3 }}
+          MODEL_PART_4: ${{ secrets.TEMP_ECOSENTINEL_MODEL_4 }}
+          MODEL_PART_5: ${{ secrets.TEMP_ECOSENTINEL_MODEL_5 }}
+          MODEL_PART_6: ${{ secrets.TEMP_ECOSENTINEL_MODEL_6 }}
+          MODEL_PART_7: ${{ secrets.TEMP_ECOSENTINEL_MODEL_7 }}
+          MODEL_SHA256: ${{ inputs.model_bundle_sha256 }}
+        run: python scripts/isolated_assets.py restore "$ECOSENTINEL_ISOLATED_MODEL" "$MODEL_SHA256"
+      - name: Build actual Docker images
+        run: docker compose --env-file /dev/null build
+      - name: Verify installed ONNX runtime before any satellite acquisition
+        run: docker compose --env-file /dev/null run --rm --no-deps --entrypoint python api -c 'from ecosentinel.inference import load_model; load_model(); print("Trained ONNX model loaded")'
+      - name: Start fresh isolated PostGIS API worker and web
+        run: docker compose --env-file /dev/null up -d --wait --wait-timeout 120 db api worker web
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare real browser
+        run: |
+          npm ci --prefix apps/web
+          cd apps/web
+          npx playwright install --with-deps chromium
+      - name: Submit one genuine analysis from the browser
+        run: |
+          node scripts/verify_real_browser.mjs submit "$RUNNER_TEMP/job.json"
+          echo "ECOSENTINEL_REAL_JOB_ID=$(python -c 'import json,os; print(json.load(open(os.environ["RUNNER_TEMP"]+"/job.json"))["id"])')" >> "$GITHUB_ENV"
+      - name: Validate actual rasters provenance reports and every export
+        run: |
+          docker compose --env-file /dev/null run --rm --no-deps -e ECOSENTINEL_REAL_JOB_ID --entrypoint python verify /app/scripts/verify_real_container.py
+      - name: Review actual completed result and browser downloads
+        run: node scripts/verify_real_browser.mjs review "$RUNNER_TEMP/job.json"
+      - name: Collect only generated analysis outputs and encrypt them
+        env:
+          OUTPUT_KEY: ${{ secrets.TEMP_ECOSENTINEL_OUTPUT_KEY }}
+        run: |
+          docker compose --env-file /dev/null cp api:/app/artifacts/real-verification "$RUNNER_TEMP/real-verification"
+          cp "$RUNNER_TEMP/job.json.desktop.png" "$RUNNER_TEMP/job.json.mobile.png" "$RUNNER_TEMP/real-verification/"
+          python -m pip install cryptography
+          python scripts/isolated_assets.py seal "$RUNNER_TEMP/real-verification" "$RUNNER_TEMP/real-analysis.aesgcm"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: encrypted-real-analysis
+          path: ${{ runner.temp }}/real-analysis.aesgcm
+          retention-days: 1
+          if-no-files-found: error
+      - name: Diagnostics without model files or credentials
+        if: failure()
+        run: docker compose --env-file /dev/null logs --no-color --tail 60
+      - name: Remove only the ephemeral stack and private model
+        if: always()
+        run: |
+          docker compose --env-file /dev/null down --volumes --remove-orphans
+          python -c 'import os,shutil; shutil.rmtree(os.environ["ECOSENTINEL_ISOLATED_MODEL"],ignore_errors=True)'

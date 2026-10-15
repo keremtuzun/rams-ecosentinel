@@ -1,0 +1,19 @@
+# Opt-in real-data run. Combine with compose.yaml and compose.verify.yaml.
+# Only the worker can reach public Sentinel STAC/COGs. No Vercel credentials.
+services:
+  api:
+    environment:
+      ECOSENTINEL_INFERENCE_ENGINE: onnx
+    volumes:
+      - ${ECOSENTINEL_ISOLATED_MODEL:?Provide verified model directory}:/app/artifacts/models/habitat-7729:ro
+  worker:
+    environment:
+      ECOSENTINEL_INFERENCE_ENGINE: onnx
+    volumes:
+      - ${ECOSENTINEL_ISOLATED_MODEL:?Provide verified model directory}:/app/artifacts/models/habitat-7729:ro
+    networks: [default, satellite]
+  verify:
+    volumes:
+      - ${ECOSENTINEL_ISOLATED_MODEL:?Provide verified model directory}:/app/artifacts/models/habitat-7729:ro
+networks:
+  satellite: {}

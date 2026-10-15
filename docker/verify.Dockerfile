@@ -1,6 +1,6 @@
 FROM base
 USER root
-RUN pip install --no-cache-dir pytest
+RUN pip install --no-cache-dir pytest pypdf
 COPY tests /checks/tests
 USER researcher
 WORKDIR /checks
