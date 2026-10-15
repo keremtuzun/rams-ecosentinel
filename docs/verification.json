@@ -1,0 +1,55 @@
+{
+  "checked_at": "2026-10-14T17:29:36.862128+00:00",
+  "python_tests": {
+    "passed": 54,
+    "failed": 0,
+    "warnings": 4,
+    "command": "python -m pytest -q",
+    "notes": "Includes actual-artifact integration and isolated no-improvement resume regression; synthetic unit fixtures are not scientific evidence."
+  },
+  "frontend_tests": {
+    "passed": 6,
+    "failed": 0,
+    "command": "npm test",
+    "notes": "Playwright contract fixtures include comparison slider and browser CSV download; actual local data verified separately."
+  },
+  "production_build": "PASS",
+  "typescript": "PASS",
+  "ruff_lint": "PASS",
+  "ruff_format": "PASS",
+  "prettier_format": "PASS",
+  "npm_audit_vulnerabilities": 0,
+  "local_health": {
+    "web": 200,
+    "api": 200
+  },
+  "live_job": {
+    "id": "a132c78a-8acc-43a8-875a-22b1f5028d48",
+    "status": "succeeded",
+    "dates": [
+      "2025-09-30",
+      "2026-09-30"
+    ],
+    "scientific_validation": "not independently validated; outside June training domain"
+  },
+  "exports": {
+    "pdf": 200,
+    "csv": 200,
+    "geojson": 200,
+    "json": 200,
+    "uncertainty_raster": 200
+  },
+  "browser": "Actual source image, candidate polygons, AOI, comparison, model registry and public thermal retrieval verified",
+  "screenshot": "artifacts/results/workspace.jpg",
+  "pdf": "artifacts/results/milas-current.pdf; two pages rendered and inspected",
+  "docker": "NOT_RUN: Docker unavailable",
+  "postgresql_postgis": "NOT_RUN",
+  "remote_ci": "NOT_RUN: no remote",
+  "wildfire_training": "NOT_RUN: no science-quality historical archive or verified as-of covariates",
+  "scientific_deployment": "BLOCKED: independent ecological validation and pilot incomplete",
+  "services_left_running": {
+    "frontend_session": 29007,
+    "api_session": 53046,
+    "worker_session": 52076
+  }
+}

@@ -1,0 +1,151 @@
+{
+  "verified_at_utc": "2026-10-14T22:16:42.427Z",
+  "job_id": "c0dc5f78-b124-4747-9ed9-44cbdf38eace",
+  "status": "succeeded",
+  "web_deployment": "dpl_2iUpUmPtGFhX2B5dYznfDVV2Axym",
+  "compute_deployment": "dpl_9q6EsFezntqVxCmfq7jfX67MRjMd",
+  "final_backend_deployment": "dpl_9Yf7fHZD4f9QB84xzgWp2Kyet9Dv",
+  "requested_dates": {
+    "before_end": "2022-06-30",
+    "after_end": "2024-06-30"
+  },
+  "grid": {
+    "crs": "EPSG:32636",
+    "transform": [
+      30,
+      0,
+      474990,
+      0,
+      -30,
+      4452510
+    ],
+    "width": 1667,
+    "height": 1649
+  },
+  "source_groups": [
+    {
+      "scene_id": "S2A_36TVK_20220620_0_L2A, S2A_36TWK_20220620_0_L2A",
+      "acquisition_range": [
+        "2022-06-20T08:49:13.852000Z",
+        "2022-06-20T08:49:17.989000Z"
+      ],
+      "mosaic": true,
+      "observations": [
+        {
+          "scene_id": "S2A_36TVK_20220620_0_L2A",
+          "acquired_at": "2022-06-20T08:49:17.989000Z",
+          "used_pixels": 1889310
+        },
+        {
+          "scene_id": "S2A_36TWK_20220620_0_L2A",
+          "acquired_at": "2022-06-20T08:49:13.852000Z",
+          "used_pixels": 831676
+        }
+      ]
+    },
+    {
+      "scene_id": "S2B_36TVK_20240624_1_L2A, S2B_36TWK_20240624_0_L2A, S2B_36TWK_20240624_1_L2A",
+      "acquisition_range": [
+        "2024-06-24T08:49:02.763000Z",
+        "2024-06-24T08:49:11.511000Z"
+      ],
+      "mosaic": true,
+      "observations": [
+        {
+          "scene_id": "S2B_36TVK_20240624_1_L2A",
+          "acquired_at": "2024-06-24T08:49:11.511000Z",
+          "used_pixels": 1847992
+        },
+        {
+          "scene_id": "S2B_36TWK_20240624_0_L2A",
+          "acquired_at": "2024-06-24T08:49:09.578000Z",
+          "used_pixels": 853746
+        },
+        {
+          "scene_id": "S2B_36TWK_20240624_1_L2A",
+          "acquired_at": "2024-06-24T08:49:02.763000Z",
+          "used_pixels": 5842
+        }
+      ]
+    }
+  ],
+  "clear_fraction": 0.9831749841662959,
+  "checkpoint_sha256": "c8463288bb16fba7a43d218004fba3851505b34025f33b72bf2b9db657a4b358",
+  "elapsed_seconds": 206.23,
+  "files_verified": [
+    {
+      "name": "assessment.pdf",
+      "sha256": "1796121238845ca3a0d0178055b86e4fd71f0f9ba286c933b720ea35362bed43",
+      "size": 27213752,
+      "verified": true
+    },
+    {
+      "name": "indices.tif",
+      "sha256": "951fa8a6ab0c9647db8bdc1a980f2ba3849ff52e87cb287139ef10ea9112a8fe",
+      "size": 106804480,
+      "verified": true
+    }
+  ],
+  "all_generated_files": [
+    "before.png",
+    "after.png",
+    "overlay.png",
+    "map.png",
+    "score.tif",
+    "mask.tif",
+    "indices.tif",
+    "source_before_index.tif",
+    "source_after_index.tif",
+    "change.geojson",
+    "report.json",
+    "assessment.pdf",
+    "assessment.csv"
+  ],
+  "pixel_http": 200,
+  "notes": [
+    "50 km limit verified with a 49,995 m bounding dimension; 30 m resolution was preserved.",
+    "The final backend also corrects aggregate water metadata and expands CSV/PDF rows for each contributing scene.",
+    "This real request covers Ankara, outside the original four study regions.",
+    "Scores remain uncalibrated experimental candidates, without independent field validation."
+  ],
+  "final_browser_job": {
+    "id": "c59ec178-2dd6-4a40-ad59-0245796a4261",
+    "status": "succeeded",
+    "dates": {
+      "before_end": "2022-06-30",
+      "after_end": "2024-06-30"
+    },
+    "stages": 3,
+    "source_observations": [
+      {
+        "scene_id": "S2A_36TVK_20220620_0_L2A",
+        "acquisition_range": [
+          "2022-06-20T08:49:17.989000Z",
+          "2022-06-20T08:49:17.989000Z"
+        ]
+      },
+      {
+        "scene_id": "S2A_36TVK_20240629_0_L2A",
+        "acquisition_range": [
+          "2024-06-29T08:49:09.177000Z",
+          "2024-06-29T08:49:09.177000Z"
+        ]
+      }
+    ],
+    "pdf_sha256": "550a3af8252777e68c0a9c4b1342255cabc2619665a07df59989cc185e17b09b",
+    "elapsed_seconds": 27.51,
+    "web_deployment": "dpl_2iUpUmPtGFhX2B5dYznfDVV2Axym",
+    "backend_deployment": "dpl_9Yf7fHZD4f9QB84xzgWp2Kyet9Dv",
+    "pdf_download_sha256_verified": true
+  },
+  "checks": {
+    "python_tests_passed": 67,
+    "frontend_tests_passed": 22,
+    "limits": {
+      "country": "TR",
+      "max_side_km": 50,
+      "max_area_km2": 2500,
+      "min_comparison_years": 2
+    }
+  }
+}

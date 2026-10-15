@@ -1,0 +1,138 @@
+{
+  "verified_at_utc": "2026-10-15T09:03:57.912753+00:00",
+  "public_url": "https://rams-ecosentinel.vercel.app/",
+  "web_deployment": "dpl_4PbTV6g4fXCu1zKrPR5xBFLaULVp",
+  "backend_deployment": "dpl_LbJ4r9AFQJJmLnnAfmnFxSSLQ1Cd",
+  "job_id": "a17849c9-eff5-4751-861f-fc6c5c91ddf0",
+  "status": "succeeded",
+  "reproduced_failures": [
+    {
+      "case": "Self-intersecting custom polygon",
+      "live_api_status": 422,
+      "response_file": "artifacts/deployment/custom-crossing-response.json",
+      "fixed_ui": "Crossing stays editable; undo corrects the boundary; unfinished drawing cannot submit the prior area"
+    },
+    {
+      "case": "Valid triangular area falsely counted outside-boundary padding as missing data",
+      "first_live_attempt": "Failed joint-data gate",
+      "rerun": "Same selected geometry and dates; completed after backend fix",
+      "old_grid_denominator_fraction": 0.4532443746729461,
+      "correct_aoi_denominator_fraction": 0.9545930456824819,
+      "joint_gate": 0.65,
+      "gate_unchanged": true
+    }
+  ],
+  "selected_aoi_pixels": 18147,
+  "grid_pixels": 38220,
+  "request_geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          31.14787359875274,
+          37.01991784356606
+        ],
+        [
+          31.2388840369172,
+          36.9835957604444
+        ],
+        [
+          31.14787359875274,
+          36.9835957604444
+        ],
+        [
+          31.14787359875274,
+          37.01991784356606
+        ]
+      ]
+    ]
+  },
+  "observation_queries": [
+    {
+      "start": "2022-06-01",
+      "end": "2022-06-30",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.14787359875274,
+              37.01991784356606
+            ],
+            [
+              31.2388840369172,
+              36.9835957604444
+            ],
+            [
+              31.14787359875274,
+              36.9835957604444
+            ],
+            [
+              31.14787359875274,
+              37.01991784356606
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "start": "2024-06-01",
+      "end": "2024-06-30",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              31.14787359875274,
+              37.01991784356606
+            ],
+            [
+              31.2388840369172,
+              36.9835957604444
+            ],
+            [
+              31.14787359875274,
+              36.9835957604444
+            ],
+            [
+              31.14787359875274,
+              37.01991784356606
+            ]
+          ]
+        ]
+      }
+    }
+  ],
+  "source_observations": [
+    {
+      "scene_id": "S2B_36SUF_20220625_0_L2A",
+      "acquired_at": "2022-06-25T08:50:12.556000Z",
+      "clear_fraction": 0.9672402382528127
+    },
+    {
+      "scene_id": "S2A_36SUF_20240629_0_L2A",
+      "acquired_at": "2024-06-29T08:50:10.626000Z",
+      "clear_fraction": 0.9637956687055712
+    }
+  ],
+  "model_checkpoint_sha256": "c8463288bb16fba7a43d218004fba3851505b34025f33b72bf2b9db657a4b358",
+  "downloaded_pdf": {
+    "path": "C:\\Users\\Kerem\\Downloads\\assessment (5).pdf",
+    "size_bytes": 188005,
+    "sha256": "ae7e26d6f2d64c0e227b6f992bce24cbef36f8af98a5fa200112d6552c1ec716",
+    "pdf_header_and_eof_checked": true
+  },
+  "checks": {
+    "python_tests_passed": 71,
+    "frontend_tests_passed": 27,
+    "ruff_passed": true,
+    "production_build_passed": true,
+    "typecheck_passed": true,
+    "bundled_python_matches_tested_source": true
+  },
+  "screenshots": [
+    "artifacts/results/custom-boundary-warning.png",
+    "artifacts/results/custom-area-fixed-live.png"
+  ],
+  "evidence_boundary": "UI fixtures and deterministic test scores were used only in tests. The live report and PDF came from real Sentinel-2 observations and the existing trained checkpoint."
+}

@@ -1,0 +1,185 @@
+{
+  "verified_at_utc": "2026-10-14T21:10:47.075336+00:00",
+  "web_deployment": "dpl_AoAqmDUJvDPhVC3ppp19PdLjgbz2",
+  "backend_deployment": "dpl_7QwdbnuJv1WpdhwSUTroHG4Ap75J",
+  "job_id": "c0eca3c0-c5dc-44d2-817c-1dc135b151de",
+  "status": "succeeded",
+  "sources": [
+    {
+      "scene_id": "S2B_35TME_20240630_0_L2A",
+      "acquired_at": "2024-06-30T09:09:21.285000Z",
+      "query": {
+        "start": "2024-06-01",
+        "end": "2024-06-30",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                26.95,
+                39.74
+              ],
+              [
+                27,
+                39.74
+              ],
+              [
+                27,
+                39.78
+              ],
+              [
+                26.95,
+                39.78
+              ],
+              [
+                26.95,
+                39.74
+              ]
+            ]
+          ]
+        }
+      },
+      "checksums": {
+        "reflectance.tif": "7a971abba7c9b943bc620e99e7b965df0d7281798efeb6e7eb01414ef38f529b",
+        "valid.tif": "19eb6b10f35257511896f9ca781fe788f2f9d4b1c13cbc4ba34d458efe8b1e47"
+      }
+    },
+    {
+      "scene_id": "S2B_35TME_20260630_0_L2A",
+      "acquired_at": "2026-06-30T09:09:14.831000Z",
+      "query": {
+        "start": "2026-06-01",
+        "end": "2026-06-30",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                26.95,
+                39.74
+              ],
+              [
+                27,
+                39.74
+              ],
+              [
+                27,
+                39.78
+              ],
+              [
+                26.95,
+                39.78
+              ],
+              [
+                26.95,
+                39.74
+              ]
+            ]
+          ]
+        }
+      },
+      "checksums": {
+        "reflectance.tif": "33aaf989c03872d55dba7c2d94a5f0d9ba8944844b7b236a4f5dfe02fba52969",
+        "valid.tif": "131f6cc07d6603eb6c45866dcbbdd04d0d8f53609fce0d485888b3e9ba7bfb08"
+      }
+    }
+  ],
+  "clear_fraction": 0.8904269202087994,
+  "runtime": "onnx",
+  "checkpoint_sha256": "c8463288bb16fba7a43d218004fba3851505b34025f33b72bf2b9db657a4b358",
+  "onnx_conversion": {
+    "created_at": "2026-10-14T20:22:19.863274+00:00",
+    "source_checkpoint_sha256": "c8463288bb16fba7a43d218004fba3851505b34025f33b72bf2b9db657a4b358",
+    "onnx_sha256": "c55049b746a265707b1d90690f739a95a9e8bf58ae4016f1ad561720e1a2d4c8",
+    "max_abs_error": 1.8477439880371094e-05,
+    "mask_disagreements": 0,
+    "verified_regions": [
+      "marmaris",
+      "milas",
+      "manavgat",
+      "izmir"
+    ],
+    "tile": 64
+  },
+  "files": [
+    {
+      "name": "before.png",
+      "size": 37373,
+      "sha256": "5986c3aa9518e406c0d409bc552b224c2f7fadca90c941f6eea30d0795406155",
+      "verified": true
+    },
+    {
+      "name": "after.png",
+      "size": 37307,
+      "sha256": "14c60972effee0380321f41a7c71090885b09abffaac36af57e8d9c0ba9eba21",
+      "verified": true
+    },
+    {
+      "name": "overlay.png",
+      "size": 288,
+      "sha256": "1288492686d35610ecfc3e3d0a3dfe5ef84f33ab6ff7c535ea84d7c0a6b3b5fd",
+      "verified": true
+    },
+    {
+      "name": "map.png",
+      "size": 37313,
+      "sha256": "c1a57ff508ffaa69a440ea4894849b50e597b59b1bba9cc68e5dd1143af07f4e",
+      "verified": true
+    },
+    {
+      "name": "score.tif",
+      "size": 84215,
+      "sha256": "a2c7c9aea41326a7a5b6541e249d778a5b273e26cdd62c30f0c44a62e168b553",
+      "verified": true
+    },
+    {
+      "name": "mask.tif",
+      "size": 1831,
+      "sha256": "d7b7ee65c931bd20564746c397193942def4c3871e8ab5049b98ed73da41d086",
+      "verified": true
+    },
+    {
+      "name": "indices.tif",
+      "size": 701844,
+      "sha256": "98ceba651a3379d42570a0906ca80a175313748771ef0d8064dcb9a3917cd297",
+      "verified": true
+    },
+    {
+      "name": "change.geojson",
+      "size": 5716,
+      "sha256": "5add1d2635799a99e9e23d4ae9aef49f894674612c1401cb39a392937b8c82c2",
+      "verified": true
+    },
+    {
+      "name": "report.json",
+      "size": 10789,
+      "sha256": "9d31166712f74b5567e174de52637f943e9dedf359daef3388744089e263e4cf",
+      "verified": true
+    },
+    {
+      "name": "assessment.pdf",
+      "size": 156756,
+      "sha256": "dbab07186af3d97d60d87eb34d09ef7662ab33cdc8c88ef79f4baf71da0934a9",
+      "verified": true
+    },
+    {
+      "name": "assessment.csv",
+      "size": 1567,
+      "sha256": "758888073febdff5ac9154cc63ffe29d479a972ce9f806af767bf4117ec15343",
+      "verified": true
+    }
+  ],
+  "owned_exports_http": {
+    "pdf": 200,
+    "csv": 200,
+    "geojson": 200,
+    "pixel": 200
+  },
+  "other_session_job_http": 404,
+  "notes": [
+    "Before ran on earlier deployment; the genuine persisted job resumed through Queues on the corrected deployment after reproducing a weak-ETag conditional-write failure.",
+    "All 11 completed private artifacts were downloaded and SHA256-verified. Owned HTTP exports were byte-identical to the private artifacts.",
+    "No two-seed uncertainty artifact is served for this run.",
+    "Predictions are experimental candidates; no independently validated ecological ground truth is asserted."
+  ]
+}

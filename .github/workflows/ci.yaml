@@ -1,0 +1,33 @@
+name: Research software checks
+on: [push, pull_request]
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install torch==2.9.1 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -e '.[dev]'
+      - run: ruff check ecosentinel tests
+      - run: ruff format --check ecosentinel tests
+      - run: pytest -q
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci
+      - run: npm audit --audit-level=high
+      - run: npx prettier --check app components lib scripts tests playwright.config.ts next.config.ts tsconfig.json package.json
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm test

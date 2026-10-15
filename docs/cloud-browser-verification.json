@@ -1,0 +1,337 @@
+{
+  "verified_at_utc": "2026-10-14T21:12:33.029Z",
+  "job_id": "f8fa4500-8a37-41f3-8d48-e6ba5f216770",
+  "web_deployment": "dpl_AoAqmDUJvDPhVC3ppp19PdLjgbz2",
+  "public_url": "https://rams-ecosentinel.vercel.app/",
+  "status": "succeeded",
+  "compute_stages": 3,
+  "created_at": "2026-10-14T21:10:25.128Z",
+  "updated_at": "2026-10-14T21:10:52.838Z",
+  "request": {
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [
+            27.228718037955474,
+            39.90833
+          ],
+          [
+            27.287401962044527,
+            39.90833
+          ],
+          [
+            27.287401962044527,
+            39.95333
+          ],
+          [
+            27.228718037955474,
+            39.95333
+          ],
+          [
+            27.228718037955474,
+            39.90833
+          ]
+        ]
+      ]
+    },
+    "before_start": "2024-06-01",
+    "before_end": "2024-06-30",
+    "after_start": "2026-06-01",
+    "after_end": "2026-06-30",
+    "module": "habitat",
+    "display_name": "Yenice"
+  },
+  "source_observations": [
+    {
+      "source": "Copernicus Sentinel-2 L2A via Element 84 Earth Search COG mirror",
+      "scene_id": "S2B_35TNE_20240630_0_L2A",
+      "acquired_at": "2024-06-30T09:09:17.869000Z",
+      "retrieved_at": "2026-10-14T21:10:35.071482+00:00",
+      "grid": {
+        "crs": "EPSG:32635",
+        "transform": [
+          30,
+          0,
+          519510,
+          0,
+          -30,
+          4422630
+        ],
+        "width": 169,
+        "height": 168
+      },
+      "clear_fraction": 0.9988467637307193,
+      "quality_denominator": "AOI pixels excluding SCL water; clouds and missing pixels remain in denominator",
+      "water_fraction": 0,
+      "scaling": {
+        "blue": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2024/6/S2B_35TNE_20240630_0_L2A/B02.tif"
+        },
+        "green": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2024/6/S2B_35TNE_20240630_0_L2A/B03.tif"
+        },
+        "red": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2024/6/S2B_35TNE_20240630_0_L2A/B04.tif"
+        },
+        "nir": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2024/6/S2B_35TNE_20240630_0_L2A/B08.tif"
+        },
+        "swir16": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2024/6/S2B_35TNE_20240630_0_L2A/B11.tif"
+        },
+        "swir22": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2024/6/S2B_35TNE_20240630_0_L2A/B12.tif"
+        }
+      },
+      "preprocessing": {
+        "version": "s2-l2a-30m-v1",
+        "bands": [
+          "blue",
+          "green",
+          "red",
+          "nir",
+          "swir16",
+          "swir22"
+        ],
+        "resolution_m": 30,
+        "resampling": "bilinear reflectance; nearest SCL and labels",
+        "valid_scl": [
+          4,
+          5
+        ],
+        "cloud_buffer_pixels": 2,
+        "reflectance_bounds": [
+          -0.1,
+          1.2
+        ],
+        "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+      },
+      "query": {
+        "start": "2024-06-01",
+        "end": "2024-06-30",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                27.228718037955474,
+                39.90833
+              ],
+              [
+                27.287401962044527,
+                39.90833
+              ],
+              [
+                27.287401962044527,
+                39.95333
+              ],
+              [
+                27.228718037955474,
+                39.95333
+              ],
+              [
+                27.228718037955474,
+                39.90833
+              ]
+            ]
+          ]
+        }
+      },
+      "checksums": {
+        "reflectance.tif": "4a084f7c0e7022845bdcfe24e938c32319f0dda61f1e18a9915f7419fe1bf5b6",
+        "valid.tif": "39f82c97ed7b525070c229320a22a4d8dc0985e64ddb744a69c471f18dd16df8"
+      }
+    },
+    {
+      "source": "Copernicus Sentinel-2 L2A via Element 84 Earth Search COG mirror",
+      "scene_id": "S2B_35TNE_20260630_0_L2A",
+      "acquired_at": "2026-06-30T09:09:11.414000Z",
+      "retrieved_at": "2026-10-14T21:10:45.920387+00:00",
+      "grid": {
+        "crs": "EPSG:32635",
+        "transform": [
+          30,
+          0,
+          519510,
+          0,
+          -30,
+          4422630
+        ],
+        "width": 169,
+        "height": 168
+      },
+      "clear_fraction": 0.9990269568977944,
+      "quality_denominator": "AOI pixels excluding SCL water; clouds and missing pixels remain in denominator",
+      "water_fraction": 0,
+      "scaling": {
+        "blue": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2026/6/S2B_35TNE_20260630_0_L2A/B02.tif"
+        },
+        "green": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2026/6/S2B_35TNE_20260630_0_L2A/B03.tif"
+        },
+        "red": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2026/6/S2B_35TNE_20260630_0_L2A/B04.tif"
+        },
+        "nir": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2026/6/S2B_35TNE_20260630_0_L2A/B08.tif"
+        },
+        "swir16": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2026/6/S2B_35TNE_20260630_0_L2A/B11.tif"
+        },
+        "swir22": {
+          "effective_scale": 0.0001,
+          "effective_offset": 0,
+          "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/T/NE/2026/6/S2B_35TNE_20260630_0_L2A/B12.tif"
+        }
+      },
+      "preprocessing": {
+        "version": "s2-l2a-30m-v1",
+        "bands": [
+          "blue",
+          "green",
+          "red",
+          "nir",
+          "swir16",
+          "swir22"
+        ],
+        "resolution_m": 30,
+        "resampling": "bilinear reflectance; nearest SCL and labels",
+        "valid_scl": [
+          4,
+          5
+        ],
+        "cloud_buffer_pixels": 2,
+        "reflectance_bounds": [
+          -0.1,
+          1.2
+        ],
+        "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+      },
+      "query": {
+        "start": "2026-06-01",
+        "end": "2026-06-30",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                27.228718037955474,
+                39.90833
+              ],
+              [
+                27.287401962044527,
+                39.90833
+              ],
+              [
+                27.287401962044527,
+                39.95333
+              ],
+              [
+                27.228718037955474,
+                39.95333
+              ],
+              [
+                27.228718037955474,
+                39.90833
+              ]
+            ]
+          ]
+        }
+      },
+      "checksums": {
+        "reflectance.tif": "d1358c8e5a5c9917704c793769b28ac7f5460f19ed885c6e06196ca5f4cc05b7",
+        "valid.tif": "502da0bb291785a0ec3fdf4cff60c37eb2e30dc43677ca742f6b24adfab29f39"
+      }
+    }
+  ],
+  "checkpoint_sha256": "c8463288bb16fba7a43d218004fba3851505b34025f33b72bf2b9db657a4b358",
+  "clear_fraction": 0.9761904761904762,
+  "files": {
+    "before.png": {
+      "size": 68681,
+      "sha256": "48f7469957f9f9f5c80da7518a74d5145ec077f0b6d31f50e65419d63cd68dce"
+    },
+    "after.png": {
+      "size": 66640,
+      "sha256": "15498589919209df76db6869c27e170a33edc3ebc54e1e13482e8d8447db1328"
+    },
+    "overlay.png": {
+      "size": 1267,
+      "sha256": "59586581afcac1d563d194c247091c3c72ab1141755de9182a1acd78de3d1004"
+    },
+    "map.png": {
+      "size": 67118,
+      "sha256": "fe593305b5892d5180af4c4603d31f97f710422bab09ec70edab0069a53c3311"
+    },
+    "score.tif": {
+      "size": 84387,
+      "sha256": "ae16d78f58afd545cdecfe61b40b1fa1ceb77397725300fa741affb84a400839"
+    },
+    "mask.tif": {
+      "size": 5127,
+      "sha256": "84cf346a85eebe2ae5991d06589c4d2abc71647810d5b0245f63b9a14e03b2a7"
+    },
+    "indices.tif": {
+      "size": 1034276,
+      "sha256": "2c067ec0b67c73d163d6ebc9481d245fe79166d931afc789fe0ed8218ee88d75"
+    },
+    "change.geojson": {
+      "size": 92290,
+      "sha256": "fb34bc616d82d00c998887ec03b07e3ff4d682567335374e9203d1d63bcca46d"
+    },
+    "report.json": {
+      "size": 11065,
+      "sha256": "2d089403ce6e29e5439b7596fc94cc58b406b5e4ae7cb4b5a2770eb399818edc"
+    },
+    "assessment.pdf": {
+      "size": 270465,
+      "sha256": "15d7a4091cb16f96fb9b0c686e87e196ea7f70bc920a8b67c3c2677360b14fa6"
+    },
+    "assessment.csv": {
+      "size": 1570,
+      "sha256": "739cbb9fe15a8ffedb5815493a366fe586d44f2aa13fef93d9ca8e983cc0ea23"
+    }
+  },
+  "notes": [
+    "Submitted through the public browser place search (Yenice, \u00c3\u2021anakkale), two date inputs and Analizi ba\u00c5\u0178lat.",
+    "No administrative replay or local worker was used for this request.",
+    "Artifact hashes here are stored compute metadata; independent downloads of all 11 artifacts were verified for the separate Kaz Da\u00c4\u0178lar\u00c4\u00b1 run."
+  ],
+  "final_web_deployment": "dpl_BHfZTUKzdypYKWbwx2hpiRbD8LDG",
+  "final_changes": [
+    "Latest created result restored on reload; named history with observation dates.",
+    "Queue retention increased to 24 hours."
+  ],
+  "final_checks": {
+    "frontend_tests_passed": 16,
+    "build": "passed",
+    "backend_health": "cloud analysis available",
+    "browser_pdf_download_sha256_verified": true,
+    "reload_restores_latest_created_analysis": true
+  },
+  "final_verified_at_utc": "2026-10-14T21:16:50.042105+00:00"
+}

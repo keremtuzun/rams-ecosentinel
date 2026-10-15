@@ -1,0 +1,2171 @@
+{
+  "generated_at": "2026-10-14T19:29:41.600675+00:00",
+  "files": [
+    {
+      "path": "dataset/izmir/after/reflectance.tif",
+      "bytes": 4688959,
+      "sha256": "0b9532ab4d83134cbe8c7c6995fa71531eee96b048328306bc9464eb21cf3326"
+    },
+    {
+      "path": "dataset/izmir/after/scene.json",
+      "bytes": 3171,
+      "sha256": "c90d076dea3dbda8598bea19ebda3d3e637825e72f360963fa722ebcdf8e20c8"
+    },
+    {
+      "path": "dataset/izmir/after/stac.json",
+      "bytes": 35294,
+      "sha256": "522dd9a2463bfd928fd3cc0d7f3396a427d92cac2a49e03841b3f1e2632e2648"
+    },
+    {
+      "path": "dataset/izmir/after/valid.tif",
+      "bytes": 3209,
+      "sha256": "27b4aebf6bb0f99da802a40f9cdbd236e5833e08d2ed3d1bb04a2ca595173549"
+    },
+    {
+      "path": "dataset/izmir/after.png",
+      "bytes": 393091,
+      "sha256": "2dbffd4fd72da7f60e4daa80ed93481ae02128745f1d58a8cb07606e92213d58"
+    },
+    {
+      "path": "dataset/izmir/before/reflectance.tif",
+      "bytes": 4701245,
+      "sha256": "adad284712ac59d47a152be8a53b4f52386906bf88de3d2dc4d3949cb6dc3a32"
+    },
+    {
+      "path": "dataset/izmir/before/scene.json",
+      "bytes": 3171,
+      "sha256": "f79e35fa492146d9ea3f1b7cabbe0ecf10436398ca4f1a6cbd008066fceb9a6f"
+    },
+    {
+      "path": "dataset/izmir/before/stac.json",
+      "bytes": 35292,
+      "sha256": "6ca29b30d20a0569e661219b1f667c59115b51c9979b637b6c708cb8667ca18e"
+    },
+    {
+      "path": "dataset/izmir/before/valid.tif",
+      "bytes": 3133,
+      "sha256": "bb565a0a1e0d3b84513aad1b9d1405d6598375a153f332c535f62fa63f7628dd"
+    },
+    {
+      "path": "dataset/izmir/before.png",
+      "bytes": 392551,
+      "sha256": "94f38fb093c1dc261682e5687a9d62cc3e2a74fe06b70a880e061f43af083680"
+    },
+    {
+      "path": "dataset/izmir/label.tif",
+      "bytes": 50148,
+      "sha256": "147daacb8ee17529ef08b4980a5bd073997444c4d12f9de1db78dc6a2a1d6737"
+    },
+    {
+      "path": "dataset/izmir/reference.json",
+      "bytes": 774,
+      "sha256": "735eec848db67e2de84418a549811a8122551975258295151dd8b02dbbbf6a66"
+    },
+    {
+      "path": "dataset/izmir/reference.npz",
+      "bytes": 133836,
+      "sha256": "e647942aa80a2099a3c0e9ddc6ab4b96204c911dc8ad8dc164d3120f36f8527b"
+    },
+    {
+      "path": "dataset/izmir/sample.json",
+      "bytes": 8766,
+      "sha256": "6012b9e0f017a4dd98ba2092a8c2dea133cfb410eb32a7b3c0dd3f886b2051c0"
+    },
+    {
+      "path": "dataset/izmir/sample.npz",
+      "bytes": 6985418,
+      "sha256": "252864d3ec38f26f3e9e14eb648a4adf641a4f69354bdab8d6aa21ff7ef3d2c3"
+    },
+    {
+      "path": "dataset/izmir/supervision_valid.tif",
+      "bytes": 18445,
+      "sha256": "b5b208a8a2706a67e5b059c46b23df6d64d1e937324581acd14f778f42fcc22a"
+    },
+    {
+      "path": "dataset/manavgat/after/reflectance.tif",
+      "bytes": 4619503,
+      "sha256": "cde6bdfa31b635fedad78d99439860a1cbfcac944e8e1827cc57e3b2540c1c8d"
+    },
+    {
+      "path": "dataset/manavgat/after/scene.json",
+      "bytes": 3171,
+      "sha256": "e2da4bf8b7b7ebd99fd76fadcce92625e2a1a59eab5954120ccb9c8d0e752746"
+    },
+    {
+      "path": "dataset/manavgat/after/stac.json",
+      "bytes": 35298,
+      "sha256": "ef6bcf1ae1008acbc3fc76defdc034105612f7e1086ca0f1c4d608278b811bac"
+    },
+    {
+      "path": "dataset/manavgat/after/valid.tif",
+      "bytes": 4791,
+      "sha256": "bf7906060051c5df2bddfd1cd52473d7a21cb849f51b90f428332e3ca5f48f00"
+    },
+    {
+      "path": "dataset/manavgat/after.png",
+      "bytes": 415811,
+      "sha256": "96bd33a8ddfa5b941ba7e333050ba7d22f67969e0a3a91b34f57bf35f883178e"
+    },
+    {
+      "path": "dataset/manavgat/before/reflectance.tif",
+      "bytes": 4559670,
+      "sha256": "8810531f6e199816ceca3ca05a45667d203edf3fb69a3708ed45600248ca584d"
+    },
+    {
+      "path": "dataset/manavgat/before/scene.json",
+      "bytes": 3171,
+      "sha256": "b90c0b701ced72fd7736ea266d7fbbd31ad504e9fe768ab3e983e48bd6c8daab"
+    },
+    {
+      "path": "dataset/manavgat/before/stac.json",
+      "bytes": 35297,
+      "sha256": "0366b72d150060f659deb4b8585e61cfdfc0b1e595e6019ba9eafa69f082dbe1"
+    },
+    {
+      "path": "dataset/manavgat/before/valid.tif",
+      "bytes": 5066,
+      "sha256": "0f4b203207113b90b4d30b9274eff4421565e20de2601079e0b62892aeace03c"
+    },
+    {
+      "path": "dataset/manavgat/before.png",
+      "bytes": 397305,
+      "sha256": "f0273d6efecff784aa88df79f0070583a4d25c6fe7e091425cda739e09ee36bf"
+    },
+    {
+      "path": "dataset/manavgat/label.tif",
+      "bytes": 168288,
+      "sha256": "0eafe5511599ba88495dd3e8aabbccce687dbccc5e735017a6a843ad1a88a4fd"
+    },
+    {
+      "path": "dataset/manavgat/reference.json",
+      "bytes": 774,
+      "sha256": "9ef6c17a51a30783a15e864aa5d731e36979fe6cad59610bc89eeabf8abc27b7"
+    },
+    {
+      "path": "dataset/manavgat/reference.npz",
+      "bytes": 135110,
+      "sha256": "b810bff68294118a02e6c3318cee1626b78b3bc9df4dbbc42a1d6a558820e04b"
+    },
+    {
+      "path": "dataset/manavgat/sample.json",
+      "bytes": 8779,
+      "sha256": "f6181b1cece8e8b5d57af33cb65bc42977e5340ce9ce03f33e9cae6d8532ae36"
+    },
+    {
+      "path": "dataset/manavgat/sample.npz",
+      "bytes": 6807888,
+      "sha256": "bffa05dcbbcdaf183c56179b373aa2f1025616b3426b9a1337b233e3a67ee84a"
+    },
+    {
+      "path": "dataset/manavgat/supervision_valid.tif",
+      "bytes": 15002,
+      "sha256": "cec45be934866c6abe475f1e7bba5736fb9bf07643e1b0bd28ad9eee153f8484"
+    },
+    {
+      "path": "dataset/manifest.json",
+      "bytes": 40923,
+      "sha256": "1095b2fb75cdfb9acd60460686155274c2e0cc4e253637f0079dc01d3b58cf70"
+    },
+    {
+      "path": "dataset/marmaris/after/reflectance.tif",
+      "bytes": 3687630,
+      "sha256": "d9b03e7907985e15d6051de9457161dcacd6c70f34b0224e1b1e957733d30fcc"
+    },
+    {
+      "path": "dataset/marmaris/after/scene.json",
+      "bytes": 3167,
+      "sha256": "34860a7f51decac09bc569b440ab7d2e6f69a852eda8435d06dbcd61ce69e8c5"
+    },
+    {
+      "path": "dataset/marmaris/after/stac.json",
+      "bytes": 35288,
+      "sha256": "d57f20147bd4b4370fe63a18fdf7f670421140237f0910d92ee9dd4056ab406d"
+    },
+    {
+      "path": "dataset/marmaris/after/valid.tif",
+      "bytes": 4754,
+      "sha256": "a50ddc511b885ee079c27204221a06285c5e45edbd2c092d3dfb2354e950cf15"
+    },
+    {
+      "path": "dataset/marmaris/after.png",
+      "bytes": 293026,
+      "sha256": "e7582175b420663c23aef75f979565c4dfe3149490fb933a82af69cea0fb710a"
+    },
+    {
+      "path": "dataset/marmaris/before/failed_candidates.json",
+      "bytes": 455,
+      "sha256": "ee8dcc170dd72e33a7f84c41e22505d11429c7bb9f6061b2f2f8197b472674dc"
+    },
+    {
+      "path": "dataset/marmaris/before/reflectance.tif",
+      "bytes": 3641341,
+      "sha256": "44ce164093a5d092277e5471154a0ceba38d09019bf909b8084fdb4e12c5b325"
+    },
+    {
+      "path": "dataset/marmaris/before/scene.json",
+      "bytes": 3167,
+      "sha256": "33faf197a61c561c1750c42cb31b75e021ea96306adab3e1def3091067aa5d3b"
+    },
+    {
+      "path": "dataset/marmaris/before/stac.json",
+      "bytes": 35955,
+      "sha256": "ddca8a4f7ce1f618809763dfe14bff2d70ac2faade7b6ea52168526b6cbe525f"
+    },
+    {
+      "path": "dataset/marmaris/before/valid.tif",
+      "bytes": 4889,
+      "sha256": "67b3efe47834ac55bfe83bc86b80b5bcf3fc96a77b20dde426d68a54156cf9b1"
+    },
+    {
+      "path": "dataset/marmaris/before.png",
+      "bytes": 286320,
+      "sha256": "7cefd20dd72cb3138150b96050d9687689096a884a4850f6e357c37e42ed0bc1"
+    },
+    {
+      "path": "dataset/marmaris/label.tif",
+      "bytes": 8306,
+      "sha256": "f01288b0bc33faec730ede0bb3a23e46e292d9a6a5eb05f292afcf29ca1f7ed1"
+    },
+    {
+      "path": "dataset/marmaris/reference.json",
+      "bytes": 774,
+      "sha256": "eb34daae9c09840c9606fe2176db830a94558902bb003083dfe43862e08ecf0e"
+    },
+    {
+      "path": "dataset/marmaris/reference.npz",
+      "bytes": 101735,
+      "sha256": "9642e54b4185251f1531ce1fb6ef14a7a79f975897172c1db0a7bb43b184f5fa"
+    },
+    {
+      "path": "dataset/marmaris/sample.json",
+      "bytes": 8747,
+      "sha256": "ca2f0159cc230724aa790dac15cfa6da0a77d3b2d7cd27b46ef2fa8a14c57533"
+    },
+    {
+      "path": "dataset/marmaris/sample.npz",
+      "bytes": 5300577,
+      "sha256": "12812f48c1942882a0ae08a95299ae63d4b6ffc045c772362f16ada6505b7971"
+    },
+    {
+      "path": "dataset/marmaris/supervision_valid.tif",
+      "bytes": 16987,
+      "sha256": "e7e499708ac712a10ec3c232f5a26049a29f862e7db4be11f07731a9646d04b2"
+    },
+    {
+      "path": "dataset/milas/after/reflectance.tif",
+      "bytes": 4707381,
+      "sha256": "3f720170f155d5b3de2bdcfac2be455e85c356c8b4553bd9e5aee4434b795ef4"
+    },
+    {
+      "path": "dataset/milas/after/scene.json",
+      "bytes": 3152,
+      "sha256": "c1db020ebac031960ac97ee8bd853363c3702f9892350547e25fe452fec52d3e"
+    },
+    {
+      "path": "dataset/milas/after/stac.json",
+      "bytes": 35497,
+      "sha256": "be3df76af954588b724fedd8f30bd669cd76a9f351173fcf2e391a6f3bae5ce0"
+    },
+    {
+      "path": "dataset/milas/after/valid.tif",
+      "bytes": 4260,
+      "sha256": "07e496122d0b7d0682826e7977f0a1ca387f2317e5be5f16b52223e895a769be"
+    },
+    {
+      "path": "dataset/milas/after.png",
+      "bytes": 410755,
+      "sha256": "cd018c8fb34ccbbfd7e6b14656e108b93fadca3355b696bc71674f38f6fbb7b0"
+    },
+    {
+      "path": "dataset/milas/before/reflectance.tif",
+      "bytes": 4805866,
+      "sha256": "5bbd2def888ff3960c68c89490aad8ef83e129de4821696e535028c078e43c64"
+    },
+    {
+      "path": "dataset/milas/before/scene.json",
+      "bytes": 3169,
+      "sha256": "728aebd5704757dd88d72374f99cc317e535540ad53c0e2cd732a206a66deec7"
+    },
+    {
+      "path": "dataset/milas/before/stac.json",
+      "bytes": 35464,
+      "sha256": "1db68877bd685b39a36c538e9c4d835744b1f98575732a18c3179043a589b21c"
+    },
+    {
+      "path": "dataset/milas/before/valid.tif",
+      "bytes": 3270,
+      "sha256": "b626d4ec4898a5d69f3c8506c06fad02445687d849ceaeeb7de5863d3219ac5d"
+    },
+    {
+      "path": "dataset/milas/before.png",
+      "bytes": 402376,
+      "sha256": "462110133c157f39aa4fe792b33432b0cf1843b675205c61dd8fd2b1539a4b84"
+    },
+    {
+      "path": "dataset/milas/label.tif",
+      "bytes": 26083,
+      "sha256": "d4063ca2cb9a2f50b74f78b2c341cf84eb3058c263c7de82ea7cc209dd0ce9d8"
+    },
+    {
+      "path": "dataset/milas/reference.json",
+      "bytes": 774,
+      "sha256": "7f5e9bf1d18229b49dc8c8c7b2523eb7a166c9c25528330e1ded49d2b13e69d8"
+    },
+    {
+      "path": "dataset/milas/reference.npz",
+      "bytes": 121037,
+      "sha256": "58c9050c45cc370b61a874522bee930c716631f7fd49bc38eac07f984b8778af"
+    },
+    {
+      "path": "dataset/milas/sample.json",
+      "bytes": 8726,
+      "sha256": "c8ef7db4292b0fb891cfc5c65e5327435670aec5a8b42cc6fe3dd68da1161cbc"
+    },
+    {
+      "path": "dataset/milas/sample.npz",
+      "bytes": 7095339,
+      "sha256": "4d20bcbb6d2f82da1c837d6711bc3527b48ea92a22c30e7d2f190f8629813042"
+    },
+    {
+      "path": "dataset/milas/supervision_valid.tif",
+      "bytes": 19128,
+      "sha256": "2286724d76f9fb1d5fb2ad991cf53946cb16071133b60bc00946d61e47c14bc0"
+    },
+    {
+      "path": "dataset/milas/worldcover2021.json",
+      "bytes": 560,
+      "sha256": "0879f5f7ba81c51dbc88e2a3a8f86acce7f2c391c7b4d6aef3fd996ea5143379"
+    },
+    {
+      "path": "dataset/milas/worldcover2021.tif",
+      "bytes": 45513,
+      "sha256": "468f094bf9b95c553fd86954eed34723e366cff91135504ec39fd0614570b7ff"
+    },
+    {
+      "path": "dataset/visual_qa.png",
+      "bytes": 3449776,
+      "sha256": "8d65764875e152e22a13ba751f621d3f5f983270ce5e60e1798afdb8031516c4"
+    },
+    {
+      "path": "jobs/23e8032f-93b4-47cb-86a9-9882369d11d8/after.png",
+      "bytes": 393141,
+      "sha256": "b604d7740f1bb583ab07c8f325029f720eca10c7d635bbc47cdbfae696b4ba0b"
+    },
+    {
+      "path": "jobs/23e8032f-93b4-47cb-86a9-9882369d11d8/before.png",
+      "bytes": 392700,
+      "sha256": "8a7e642cc8222c241f268fce7c3c11c4362805bc3e125e964c3f0216968c2221"
+    },
+    {
+      "path": "jobs/23e8032f-93b4-47cb-86a9-9882369d11d8/indices.tif",
+      "bytes": 6468190,
+      "sha256": "1f5f04be1e1f7ce35c90edeb923e809a2cc21a30aea390b64e7de724743eb3a9"
+    },
+    {
+      "path": "jobs/23e8032f-93b4-47cb-86a9-9882369d11d8/mask.tif",
+      "bytes": 23568,
+      "sha256": "d99cebc98d74c1aff280b6b410c11ffb97923b30983422e01c2d42fc19c0f485"
+    },
+    {
+      "path": "jobs/23e8032f-93b4-47cb-86a9-9882369d11d8/overlay.png",
+      "bytes": 6028,
+      "sha256": "02cbf367a57fe30cf58e3dc99e8d5759ddbc13054879b5b79983b846fc965c5b"
+    },
+    {
+      "path": "jobs/23e8032f-93b4-47cb-86a9-9882369d11d8/report.json",
+      "bytes": 10432,
+      "sha256": "e387b45221c902a3819b47b218d22d0858622c591d928d7cf049d444bb9832e5"
+    },
+    {
+      "path": "jobs/23e8032f-93b4-47cb-86a9-9882369d11d8/score.tif",
+      "bytes": 564707,
+      "sha256": "23f6825a0458390a25506469b55698907d298fd0855f9fe2d68d9cefd8c07510"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/after.png",
+      "bytes": 360924,
+      "sha256": "3029cf892999273882395fdd0bdbe5d4ee574fbfcd9fd722caccebc4796d1caf"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/before.png",
+      "bytes": 366222,
+      "sha256": "467cc99e281b6e4728717e73df04c56c95acd08d7cd488c024295aba7754a0c6"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/indices.tif",
+      "bytes": 4700281,
+      "sha256": "6f8f09da5766e11488ac0bc93f06d73d25c7f880dd39e8b71240e60ed155631b"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/map.png",
+      "bytes": 360913,
+      "sha256": "b1da988584bb00ed0c071a2d27f0711047662ae152b0bf73d11a11a0ded6f0f3"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/mask.tif",
+      "bytes": 19308,
+      "sha256": "7dff6e155e6c94fd2bf84355377ae1df2c12b561b19912685f68ac6226388468"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/overlay.png",
+      "bytes": 1306,
+      "sha256": "dcea6893543a1c808863d9aaa3087d91eb4c4beb5f1acb28722865c7db369dd0"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/report.json",
+      "bytes": 11141,
+      "sha256": "ec60f42400820decbd3e4e5302b98b417e92aee7f2bcba8a7ad1ca1e8ce55d0a"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/score.tif",
+      "bytes": 404836,
+      "sha256": "86d328d1ce5607ba6e910122b37b53d2e3d321297992b2a27b3404f0e3e79b13"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/source_after/reflectance.tif",
+      "bytes": 4048522,
+      "sha256": "e9e989ed9528c206443fe3de26705009f720868036744a458aebb2589539c726"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/source_after/scene.json",
+      "bytes": 3170,
+      "sha256": "8ef946397705d92924170f5145e61082ac785944b710ce2e24fa1a3fd27a1293"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/source_after/stac.json",
+      "bytes": 35065,
+      "sha256": "207ab567441149ed8be545208880110b05a5d692a7ef13280ff5d8ded1f8501e"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/source_after/valid.tif",
+      "bytes": 8388,
+      "sha256": "e9887f44a6630bc6e35494147d9011b66e608261fb2ae4364fbe33260530a5b3"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/source_before/reflectance.tif",
+      "bytes": 4119133,
+      "sha256": "324ffb6843cd8c7b091dd8d820a749bf4fbfa5ba21bffd472cbd500e2c4dc870"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/source_before/scene.json",
+      "bytes": 3171,
+      "sha256": "c2659771feff6024a5ff37eea08bbf21ecea852b9c9110939aec63e35d1465b9"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/source_before/stac.json",
+      "bytes": 35152,
+      "sha256": "23279b1573f6c70ab9f926e9f07661e118a8e8b8e3e8f3f9979a1b33b2bfbd07"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/source_before/valid.tif",
+      "bytes": 9312,
+      "sha256": "5ebc45930dc8d283a0e8bde93a6239b575f8ffadcce6cbbba647e80b20ed29f6"
+    },
+    {
+      "path": "jobs/a132c78a-8acc-43a8-875a-22b1f5028d48/uncertainty.tif",
+      "bytes": 404312,
+      "sha256": "3bcd94ba6795cfa7273c10df96de70beb79f9503884f7cb3084f597eca4adb53"
+    },
+    {
+      "path": "jobs/be343c1f-bdd5-4aa3-b21e-cb6c922b0ea6/after.png",
+      "bytes": 293132,
+      "sha256": "dec1fbe842a5a2761f0f6a3497e3630027d3ee64d2ad4eb77160846e4266dacf"
+    },
+    {
+      "path": "jobs/be343c1f-bdd5-4aa3-b21e-cb6c922b0ea6/before.png",
+      "bytes": 286430,
+      "sha256": "5429ced5647f94dee7d04c7d4336b68ad71688ea3aeaf06efd5e7f511ea9de14"
+    },
+    {
+      "path": "jobs/be343c1f-bdd5-4aa3-b21e-cb6c922b0ea6/indices.tif",
+      "bytes": 4909076,
+      "sha256": "8a8c59c327406046b9b231eae7a0480138bd6efcab69bfdcde9de9baa241d642"
+    },
+    {
+      "path": "jobs/be343c1f-bdd5-4aa3-b21e-cb6c922b0ea6/map.png",
+      "bytes": 293173,
+      "sha256": "537c8fdf0564a5f59bce077d32bee12603b182332171b3015927c1154b1457ef"
+    },
+    {
+      "path": "jobs/be343c1f-bdd5-4aa3-b21e-cb6c922b0ea6/mask.tif",
+      "bytes": 15165,
+      "sha256": "e876315e9dfadc3e32c4098a0f1393c11af88b0f188ca8bfba3684be2f99f7e0"
+    },
+    {
+      "path": "jobs/be343c1f-bdd5-4aa3-b21e-cb6c922b0ea6/overlay.png",
+      "bytes": 1678,
+      "sha256": "e8f11d32d66335286e4ab5e78c8ec8f30a9035ddc7f3858c8d1d481c63fb47fc"
+    },
+    {
+      "path": "jobs/be343c1f-bdd5-4aa3-b21e-cb6c922b0ea6/report.json",
+      "bytes": 11142,
+      "sha256": "d890afd4fa0aec86c6154ee2b59323418183d524f59ea74eba5b3d71562de786"
+    },
+    {
+      "path": "jobs/be343c1f-bdd5-4aa3-b21e-cb6c922b0ea6/score.tif",
+      "bytes": 523430,
+      "sha256": "4ffd99af3bfcb66b5c1bd49161291eec2a764a7fa80d82d37daa5d0026edf94e"
+    },
+    {
+      "path": "jobs/be343c1f-bdd5-4aa3-b21e-cb6c922b0ea6/uncertainty.tif",
+      "bytes": 523741,
+      "sha256": "520360f77d575ebac0873861d8ed606cbf0ce96d6d2c9d7ac5a0ac8cc97252c9"
+    },
+    {
+      "path": "jobs/f1d02b90-d4f5-468b-912b-fc9bbe327405/after.png",
+      "bytes": 416095,
+      "sha256": "9f5e7c5bdab78cfbc0ee7ab82717858468e50411889d36fc04b3d0835d520ccf"
+    },
+    {
+      "path": "jobs/f1d02b90-d4f5-468b-912b-fc9bbe327405/before.png",
+      "bytes": 397454,
+      "sha256": "93aec80fba745ef29aa853a5ca0567b1434b273672f27d979f7f3409aedb1b0d"
+    },
+    {
+      "path": "jobs/f1d02b90-d4f5-468b-912b-fc9bbe327405/indices.tif",
+      "bytes": 6233519,
+      "sha256": "842f9e0f9ee8c1c9b672a09ebd993fbdce71329871b79f8519f6d8adeced8cff"
+    },
+    {
+      "path": "jobs/f1d02b90-d4f5-468b-912b-fc9bbe327405/map.png",
+      "bytes": 373880,
+      "sha256": "240eeb9fdeacbcc414ac80c54d50ef8489c01bed945f55b2d0d5b9f76194f881"
+    },
+    {
+      "path": "jobs/f1d02b90-d4f5-468b-912b-fc9bbe327405/mask.tif",
+      "bytes": 31285,
+      "sha256": "4aa41927f222c05d42e1ef2f10d300c8eaa74f4ae5baa6b05ec8d007dad06b21"
+    },
+    {
+      "path": "jobs/f1d02b90-d4f5-468b-912b-fc9bbe327405/overlay.png",
+      "bytes": 21693,
+      "sha256": "cae9e236410de5ba8a8a402f0ea9b1fa089616189301b4b43bd276b32326f35f"
+    },
+    {
+      "path": "jobs/f1d02b90-d4f5-468b-912b-fc9bbe327405/report.json",
+      "bytes": 11152,
+      "sha256": "b7c22cbc1ac0b2bb962c0c685aefbac54fa3a0fb104f970933616ee3b37b8317"
+    },
+    {
+      "path": "jobs/f1d02b90-d4f5-468b-912b-fc9bbe327405/score.tif",
+      "bytes": 573716,
+      "sha256": "c049b151fc15c1057ffdba245e3ceae962133fdc110f53920ad94a1d3c4f9ab0"
+    },
+    {
+      "path": "jobs/f1d02b90-d4f5-468b-912b-fc9bbe327405/uncertainty.tif",
+      "bytes": 583188,
+      "sha256": "ac313d71b97c55cf35b5d6996521f0b6015895a2d8551ccc110cd87f9a151501"
+    },
+    {
+      "path": "models/habitat-7729/baselines.json",
+      "bytes": 9994,
+      "sha256": "7a723b0666ca2d9389d7b1d3da50961ec4e6c9df10698088c9e07f91815d1340"
+    },
+    {
+      "path": "models/habitat-7729/best.pt",
+      "bytes": 676881,
+      "sha256": "c8463288bb16fba7a43d218004fba3851505b34025f33b72bf2b9db657a4b358"
+    },
+    {
+      "path": "models/habitat-7729/config.json",
+      "bytes": 1222,
+      "sha256": "8f8f99012408eccdce0c0e9f9c11a8487377d898dc9332aa55cea1734d50829c"
+    },
+    {
+      "path": "models/habitat-7729/dataset_manifest.json",
+      "bytes": 40923,
+      "sha256": "1095b2fb75cdfb9acd60460686155274c2e0cc4e253637f0079dc01d3b58cf70"
+    },
+    {
+      "path": "models/habitat-7729/history.json",
+      "bytes": 7409,
+      "sha256": "73caccb7d31464f5880bccb96499ce63a427cfe206a52c37c3c218eef030885f"
+    },
+    {
+      "path": "models/habitat-7729/last.pt",
+      "bytes": 677777,
+      "sha256": "a9f222a2b869e62b009afa1fdf3909eecb484b01ea954e28d49d01170b3aa1d0"
+    },
+    {
+      "path": "models/habitat-7729/metrics.json",
+      "bytes": 3853,
+      "sha256": "0bb9e2573f43d9eb69f72b1a403ff844969874d2c86485f9767971da945e6cd7"
+    },
+    {
+      "path": "models/habitat-7729/training.png",
+      "bytes": 46065,
+      "sha256": "7da1f95444c666c13a825a7d0ee2a881b81815b2935c8626d8766f015fbf62b8"
+    },
+    {
+      "path": "models/habitat-7730/best.pt",
+      "bytes": 678289,
+      "sha256": "71df90e9ecdabc3f782e073bbf6a3f3940e0ea8ec524566219ba22dcc65a3fa1"
+    },
+    {
+      "path": "models/habitat-7730/config.json",
+      "bytes": 1222,
+      "sha256": "d4d14ac57d7e2fa87af89fac73f992fca5c185ea3e97a4cdc657fe1718f15d2f"
+    },
+    {
+      "path": "models/habitat-7730/dataset_manifest.json",
+      "bytes": 40923,
+      "sha256": "1095b2fb75cdfb9acd60460686155274c2e0cc4e253637f0079dc01d3b58cf70"
+    },
+    {
+      "path": "models/habitat-7730/history.json",
+      "bytes": 8802,
+      "sha256": "4712b87d59a5c2429560152f13e7fd5c2b29ce2ff61dd72e96e3b150da948b72"
+    },
+    {
+      "path": "models/habitat-7730/last.pt",
+      "bytes": 678353,
+      "sha256": "56e0f6bc1402c7b4425e5beed7a764123942d688dfb697e26598c0a325f75565"
+    },
+    {
+      "path": "models/habitat-7730/metrics.json",
+      "bytes": 3859,
+      "sha256": "74dcd79fddc0c41d43e64673e57c483d62ba06a350b79df9f6584a55baba9803"
+    },
+    {
+      "path": "models/habitat-7730/training.png",
+      "bytes": 48508,
+      "sha256": "35ea1180afb5afa123ea6848d97c86162171ff855d1911b67ddc4382d1723f3f"
+    },
+    {
+      "path": "models/habitat-rgb/best.pt",
+      "bytes": 672017,
+      "sha256": "fbdae18425eb7e8968e8cb6da74926a34463c345b100496d5e1b61a4a297573f"
+    },
+    {
+      "path": "models/habitat-rgb/config.json",
+      "bytes": 1212,
+      "sha256": "3bba4ad16418b183db70e2e4f881f625fc6c01508f0f3635ccb7ade4af7c6ddf"
+    },
+    {
+      "path": "models/habitat-rgb/dataset_manifest.json",
+      "bytes": 40923,
+      "sha256": "1095b2fb75cdfb9acd60460686155274c2e0cc4e253637f0079dc01d3b58cf70"
+    },
+    {
+      "path": "models/habitat-rgb/history.json",
+      "bytes": 7971,
+      "sha256": "15daa81bfaed938aab0a56407667aaa2559a5b0f7ee0c25822075c0128939cdb"
+    },
+    {
+      "path": "models/habitat-rgb/last.pt",
+      "bytes": 672849,
+      "sha256": "c5e63ca7dc9f997255302a692ee19413b72b9519a6d454aa61cb81173a856526"
+    },
+    {
+      "path": "models/habitat-rgb/metrics.json",
+      "bytes": 3863,
+      "sha256": "ca339a6bfaae153c2a74b7ddfe2ea28fd0e1ea66fc05a897fd15fd64b67a995e"
+    },
+    {
+      "path": "models/habitat-rgb/training.png",
+      "bytes": 51631,
+      "sha256": "a951f518bcd2088bdc856fb1379c65b77141cefbb4f0dead8d3f6ed627800593"
+    },
+    {
+      "path": "models/habitat-single-date/best.pt",
+      "bytes": 678353,
+      "sha256": "6122a6d37d5b398a8d33cb204b9655f7fc4eda766e0625ae9e4c741e156f855e"
+    },
+    {
+      "path": "models/habitat-single-date/config.json",
+      "bytes": 1223,
+      "sha256": "78d0b55681a52cf9c8ef8243676e1d35edaa18df597aaed15d373d848dcc1641"
+    },
+    {
+      "path": "models/habitat-single-date/dataset_manifest.json",
+      "bytes": 40923,
+      "sha256": "1095b2fb75cdfb9acd60460686155274c2e0cc4e253637f0079dc01d3b58cf70"
+    },
+    {
+      "path": "models/habitat-single-date/history.json",
+      "bytes": 8794,
+      "sha256": "f8513278ab1a96b7eed4a2a7c9830bade82174beb4b3dcc40f27f6bc3be8b660"
+    },
+    {
+      "path": "models/habitat-single-date/last.pt",
+      "bytes": 678353,
+      "sha256": "85cf60e98a32f9114c72a1d0ab870a217f38c28c9aabe46ce9f69858285dc287"
+    },
+    {
+      "path": "models/habitat-single-date/metrics.json",
+      "bytes": 3852,
+      "sha256": "5695800ee5c18d3f659908558f44e923b89869068c19a6a72260c4b3aef61d1a"
+    },
+    {
+      "path": "models/habitat-single-date/training.png",
+      "bytes": 52418,
+      "sha256": "6886adda2df3576cd1c5371ae83675564abe0a26be8a357dd3f971713698363f"
+    },
+    {
+      "path": "results/izmir-heldout/after.png",
+      "bytes": 393141,
+      "sha256": "b604d7740f1bb583ab07c8f325029f720eca10c7d635bbc47cdbfae696b4ba0b"
+    },
+    {
+      "path": "results/izmir-heldout/before.png",
+      "bytes": 392700,
+      "sha256": "8a7e642cc8222c241f268fce7c3c11c4362805bc3e125e964c3f0216968c2221"
+    },
+    {
+      "path": "results/izmir-heldout/indices.tif",
+      "bytes": 6468190,
+      "sha256": "1f5f04be1e1f7ce35c90edeb923e809a2cc21a30aea390b64e7de724743eb3a9"
+    },
+    {
+      "path": "results/izmir-heldout/mask.tif",
+      "bytes": 23568,
+      "sha256": "d99cebc98d74c1aff280b6b410c11ffb97923b30983422e01c2d42fc19c0f485"
+    },
+    {
+      "path": "results/izmir-heldout/overlay.png",
+      "bytes": 6028,
+      "sha256": "02cbf367a57fe30cf58e3dc99e8d5759ddbc13054879b5b79983b846fc965c5b"
+    },
+    {
+      "path": "results/izmir-heldout/report.json",
+      "bytes": 11149,
+      "sha256": "db9010aa749456eec125a361c158bd25982b157645a7275cdacf0e990cadae36"
+    },
+    {
+      "path": "results/izmir-heldout/score.tif",
+      "bytes": 564707,
+      "sha256": "23f6825a0458390a25506469b55698907d298fd0855f9fe2d68d9cefd8c07510"
+    },
+    {
+      "path": "results/izmir-heldout/uncertainty.tif",
+      "bytes": 565313,
+      "sha256": "d9e9a504c1d0859bb0a470f1bb5be1ff4772ed1b1e4a8a39af913f749fb22962"
+    },
+    {
+      "path": "results/manavgat-viewer/after.png",
+      "bytes": 416095,
+      "sha256": "9f5e7c5bdab78cfbc0ee7ab82717858468e50411889d36fc04b3d0835d520ccf"
+    },
+    {
+      "path": "results/manavgat-viewer/before.png",
+      "bytes": 397454,
+      "sha256": "93aec80fba745ef29aa853a5ca0567b1434b273672f27d979f7f3409aedb1b0d"
+    },
+    {
+      "path": "results/manavgat-viewer/indices.tif",
+      "bytes": 6233519,
+      "sha256": "842f9e0f9ee8c1c9b672a09ebd993fbdce71329871b79f8519f6d8adeced8cff"
+    },
+    {
+      "path": "results/manavgat-viewer/map.png",
+      "bytes": 373880,
+      "sha256": "240eeb9fdeacbcc414ac80c54d50ef8489c01bed945f55b2d0d5b9f76194f881"
+    },
+    {
+      "path": "results/manavgat-viewer/mask.tif",
+      "bytes": 31285,
+      "sha256": "4aa41927f222c05d42e1ef2f10d300c8eaa74f4ae5baa6b05ec8d007dad06b21"
+    },
+    {
+      "path": "results/manavgat-viewer/overlay.png",
+      "bytes": 21693,
+      "sha256": "cae9e236410de5ba8a8a402f0ea9b1fa089616189301b4b43bd276b32326f35f"
+    },
+    {
+      "path": "results/manavgat-viewer/report.json",
+      "bytes": 11152,
+      "sha256": "b7c22cbc1ac0b2bb962c0c685aefbac54fa3a0fb104f970933616ee3b37b8317"
+    },
+    {
+      "path": "results/manavgat-viewer/score.tif",
+      "bytes": 573716,
+      "sha256": "c049b151fc15c1057ffdba245e3ceae962133fdc110f53920ad94a1d3c4f9ab0"
+    },
+    {
+      "path": "results/manavgat-viewer/uncertainty.tif",
+      "bytes": 583188,
+      "sha256": "ac313d71b97c55cf35b5d6996521f0b6015895a2d8551ccc110cd87f9a151501"
+    },
+    {
+      "path": "results/marmaris-viewer/after.png",
+      "bytes": 293132,
+      "sha256": "dec1fbe842a5a2761f0f6a3497e3630027d3ee64d2ad4eb77160846e4266dacf"
+    },
+    {
+      "path": "results/marmaris-viewer/before.png",
+      "bytes": 286430,
+      "sha256": "5429ced5647f94dee7d04c7d4336b68ad71688ea3aeaf06efd5e7f511ea9de14"
+    },
+    {
+      "path": "results/marmaris-viewer/indices.tif",
+      "bytes": 4909076,
+      "sha256": "8a8c59c327406046b9b231eae7a0480138bd6efcab69bfdcde9de9baa241d642"
+    },
+    {
+      "path": "results/marmaris-viewer/map.png",
+      "bytes": 293173,
+      "sha256": "537c8fdf0564a5f59bce077d32bee12603b182332171b3015927c1154b1457ef"
+    },
+    {
+      "path": "results/marmaris-viewer/mask.tif",
+      "bytes": 15165,
+      "sha256": "e876315e9dfadc3e32c4098a0f1393c11af88b0f188ca8bfba3684be2f99f7e0"
+    },
+    {
+      "path": "results/marmaris-viewer/overlay.png",
+      "bytes": 1678,
+      "sha256": "e8f11d32d66335286e4ab5e78c8ec8f30a9035ddc7f3858c8d1d481c63fb47fc"
+    },
+    {
+      "path": "results/marmaris-viewer/report.json",
+      "bytes": 11142,
+      "sha256": "d890afd4fa0aec86c6154ee2b59323418183d524f59ea74eba5b3d71562de786"
+    },
+    {
+      "path": "results/marmaris-viewer/score.tif",
+      "bytes": 523430,
+      "sha256": "4ffd99af3bfcb66b5c1bd49161291eec2a764a7fa80d82d37daa5d0026edf94e"
+    },
+    {
+      "path": "results/marmaris-viewer/uncertainty.tif",
+      "bytes": 523741,
+      "sha256": "520360f77d575ebac0873861d8ed606cbf0ce96d6d2c9d7ac5a0ac8cc97252c9"
+    },
+    {
+      "path": "results/milas-current.pdf",
+      "bytes": 1424840,
+      "sha256": "fdfb3d0a07a65017392b7c7b876697250a616deb5aab63eb0bc4980356636b89"
+    },
+    {
+      "path": "results/pdf-qa/final-1.png",
+      "bytes": 199421,
+      "sha256": "603cc24f9e9109848267f6ac73a8a821ead4c1ac7acd84acc8726989b43cc357"
+    },
+    {
+      "path": "results/pdf-qa/final-2.png",
+      "bytes": 132175,
+      "sha256": "d25bffddf2db9931d64f3672658308e774bdfc3ccee517020e059e0dc16e6f10"
+    },
+    {
+      "path": "results/pdf-qa/page-1.png",
+      "bytes": 151672,
+      "sha256": "7abb841559eaa5176e6b62377b924cd1b2ac9805acd191da23ddaa33a760a950"
+    },
+    {
+      "path": "results/pdf-qa/page-2.png",
+      "bytes": 144093,
+      "sha256": "9492db4ab11d102ee4820f0753b8bda86a681f18a45a874ed97e2ec886c32f8a"
+    },
+    {
+      "path": "results/pdf-qa/page-3.png",
+      "bytes": 30798,
+      "sha256": "bc8a437dedc8b6eaba048f1fda5ca46e9667c7ef92764ea9008df0ffdb4f6b7f"
+    },
+    {
+      "path": "results/vercel-assessment.csv",
+      "bytes": 1749,
+      "sha256": "75da3df4ae53f7abffa5723525610323124e5cf2a637008c989da6ace7ee4104"
+    },
+    {
+      "path": "results/vercel-assessment.pdf",
+      "bytes": 1424840,
+      "sha256": "c41b6ec746d1fdb7080aaea71fbb35681d5aa6df4d44e716db4c1eb26665dda2"
+    },
+    {
+      "path": "results/vercel-jobs.json",
+      "bytes": 887,
+      "sha256": "1e3f8a7fcf14cc5d02b2deb867cd5f1961313cbaadfee1546fcbb5ad2bdc8ecc"
+    },
+    {
+      "path": "results/vercel-live.png",
+      "bytes": 198658,
+      "sha256": "1b5579e91f60230b825a5b98fa74e10586bafa972fc64c74433697ef5cd79127"
+    },
+    {
+      "path": "results/workspace.jpg",
+      "bytes": 197044,
+      "sha256": "abea323f796e10f3a52e9c7bc3da3c2b60688630d6e5b581e2240469a090d7eb"
+    },
+    {
+      "path": "sources/firms/MODIS_C6_1_Global_24h.csv",
+      "bytes": 1163368,
+      "sha256": "d56365d03f03d5118ba1f098ce2b059f76af8c4d2374cd1bf327b92a3c9df48f"
+    },
+    {
+      "path": "sources/firms/public_feed.json",
+      "bytes": 321,
+      "sha256": "60c7095cbc07ed4a6b6110efcf0dd327acca5f7740f0a2736fbc7cc28c4e526d"
+    }
+  ],
+  "dataset": {
+    "created_at": "2026-10-14T16:35:00.426041+00:00",
+    "preprocessing": {
+      "version": "s2-l2a-30m-v1",
+      "bands": [
+        "blue",
+        "green",
+        "red",
+        "nir",
+        "swir16",
+        "swir22"
+      ],
+      "resolution_m": 30,
+      "resampling": "bilinear reflectance; nearest SCL and labels",
+      "valid_scl": [
+        4,
+        5
+      ],
+      "cloud_buffer_pixels": 2,
+      "reflectance_bounds": [
+        -0.1,
+        1.2
+      ],
+      "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+    },
+    "regions": [
+      {
+        "id": "marmaris",
+        "name": "Marmaris forest study",
+        "split": "train",
+        "bbox": [
+          28.22,
+          36.98,
+          28.35,
+          37.1
+        ],
+        "before": [
+          "2020-06-01",
+          "2020-06-30"
+        ],
+        "after": [
+          "2022-06-01",
+          "2022-06-30"
+        ],
+        "loss_year": 2021,
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                28.35,
+                36.98
+              ],
+              [
+                28.35,
+                37.1
+              ],
+              [
+                28.22,
+                37.1
+              ],
+              [
+                28.22,
+                36.98
+              ],
+              [
+                28.35,
+                36.98
+              ]
+            ]
+          ]
+        },
+        "grid": {
+          "crs": "EPSG:32635",
+          "transform": [
+            30.0,
+            0.0,
+            608400.0,
+            0.0,
+            -30.0,
+            4106820.0
+          ],
+          "width": 392,
+          "height": 450
+        },
+        "before_scene": {
+          "source": "Copernicus Sentinel-2 L2A via Element 84 Earth Search COG mirror",
+          "scene_id": "S2B_35SPB_20200628_2_L2A",
+          "acquired_at": "2020-06-28T09:00:01.788000Z",
+          "retrieved_at": "2026-10-14T16:31:01.650461+00:00",
+          "grid": {
+            "crs": "EPSG:32635",
+            "transform": [
+              30.0,
+              0.0,
+              608400.0,
+              0.0,
+              -30.0,
+              4106820.0
+            ],
+            "width": 392,
+            "height": 450
+          },
+          "clear_fraction": 0.9672411685613006,
+          "quality_denominator": "AOI pixels excluding SCL water; clouds and missing pixels remain in denominator",
+          "water_fraction": 0.2347724416123469,
+          "scaling": {
+            "blue": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2020/6/S2B_35SPB_20200628_2_L2A/B02.tif"
+            },
+            "green": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2020/6/S2B_35SPB_20200628_2_L2A/B03.tif"
+            },
+            "red": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2020/6/S2B_35SPB_20200628_2_L2A/B04.tif"
+            },
+            "nir": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2020/6/S2B_35SPB_20200628_2_L2A/B08.tif"
+            },
+            "swir16": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2020/6/S2B_35SPB_20200628_2_L2A/B11.tif"
+            },
+            "swir22": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2020/6/S2B_35SPB_20200628_2_L2A/B12.tif"
+            }
+          },
+          "preprocessing": {
+            "version": "s2-l2a-30m-v1",
+            "bands": [
+              "blue",
+              "green",
+              "red",
+              "nir",
+              "swir16",
+              "swir22"
+            ],
+            "resolution_m": 30,
+            "resampling": "bilinear reflectance; nearest SCL and labels",
+            "valid_scl": [
+              4,
+              5
+            ],
+            "cloud_buffer_pixels": 2,
+            "reflectance_bounds": [
+              -0.1,
+              1.2
+            ],
+            "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+          },
+          "query": {
+            "start": "2020-06-01",
+            "end": "2020-06-30",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    28.35,
+                    36.98
+                  ],
+                  [
+                    28.35,
+                    37.1
+                  ],
+                  [
+                    28.22,
+                    37.1
+                  ],
+                  [
+                    28.22,
+                    36.98
+                  ],
+                  [
+                    28.35,
+                    36.98
+                  ]
+                ]
+              ]
+            }
+          },
+          "checksums": {
+            "reflectance.tif": "44ce164093a5d092277e5471154a0ceba38d09019bf909b8084fdb4e12c5b325",
+            "valid.tif": "67b3efe47834ac55bfe83bc86b80b5bcf3fc96a77b20dde426d68a54156cf9b1"
+          }
+        },
+        "after_scene": {
+          "source": "Copernicus Sentinel-2 L2A via Element 84 Earth Search COG mirror",
+          "scene_id": "S2A_35SPB_20220623_0_L2A",
+          "acquired_at": "2022-06-23T09:00:10.044000Z",
+          "retrieved_at": "2026-10-14T16:31:37.959333+00:00",
+          "grid": {
+            "crs": "EPSG:32635",
+            "transform": [
+              30.0,
+              0.0,
+              608400.0,
+              0.0,
+              -30.0,
+              4106820.0
+            ],
+            "width": 392,
+            "height": 450
+          },
+          "clear_fraction": 0.9784228690101701,
+          "quality_denominator": "AOI pixels excluding SCL water; clouds and missing pixels remain in denominator",
+          "water_fraction": 0.2343281400719067,
+          "scaling": {
+            "blue": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2022/6/S2A_35SPB_20220623_0_L2A/B02.tif"
+            },
+            "green": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2022/6/S2A_35SPB_20220623_0_L2A/B03.tif"
+            },
+            "red": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2022/6/S2A_35SPB_20220623_0_L2A/B04.tif"
+            },
+            "nir": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2022/6/S2A_35SPB_20220623_0_L2A/B08.tif"
+            },
+            "swir16": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2022/6/S2A_35SPB_20220623_0_L2A/B11.tif"
+            },
+            "swir22": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/PB/2022/6/S2A_35SPB_20220623_0_L2A/B12.tif"
+            }
+          },
+          "preprocessing": {
+            "version": "s2-l2a-30m-v1",
+            "bands": [
+              "blue",
+              "green",
+              "red",
+              "nir",
+              "swir16",
+              "swir22"
+            ],
+            "resolution_m": 30,
+            "resampling": "bilinear reflectance; nearest SCL and labels",
+            "valid_scl": [
+              4,
+              5
+            ],
+            "cloud_buffer_pixels": 2,
+            "reflectance_bounds": [
+              -0.1,
+              1.2
+            ],
+            "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+          },
+          "query": {
+            "start": "2022-06-01",
+            "end": "2022-06-30",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    28.35,
+                    36.98
+                  ],
+                  [
+                    28.35,
+                    37.1
+                  ],
+                  [
+                    28.22,
+                    37.1
+                  ],
+                  [
+                    28.22,
+                    36.98
+                  ],
+                  [
+                    28.35,
+                    36.98
+                  ]
+                ]
+              ]
+            }
+          },
+          "checksums": {
+            "reflectance.tif": "d9b03e7907985e15d6051de9457161dcacd6c70f34b0224e1b1e957733d30fcc",
+            "valid.tif": "a50ddc511b885ee079c27204221a06285c5e45edbd2c092d3dfb2354e950cf15"
+          }
+        },
+        "sample": "marmaris/sample.npz",
+        "sample_sha256": "12812f48c1942882a0ae08a95299ae63d4b6ffc045c772362f16ada6505b7971",
+        "label_source": "GFC-2025-v1.13",
+        "label_urls": {
+          "lossyear": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_lossyear_40N_020E.tif",
+          "treecover2000": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_treecover2000_40N_020E.tif",
+          "datamask": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_datamask_40N_020E.tif"
+        },
+        "valid_pixels": 70961,
+        "positive_pixels": 88,
+        "negative_pixels": 70873,
+        "pair_clear_fraction": 0.7160430839002268,
+        "indicator_means_on_supervised_pixels": {
+          "ndvi": {
+            "before": 0.7481455206871033,
+            "after": 0.6993611454963684
+          },
+          "ndmi": {
+            "before": 0.27497828006744385,
+            "after": 0.21938543021678925
+          },
+          "nbr": {
+            "before": 0.5356345176696777,
+            "after": 0.488214910030365
+          }
+        }
+      },
+      {
+        "id": "milas",
+        "name": "Milas forest study",
+        "split": "train",
+        "bbox": [
+          27.84,
+          37.08,
+          27.97,
+          37.2
+        ],
+        "before": [
+          "2020-06-01",
+          "2020-06-30"
+        ],
+        "after": [
+          "2022-06-01",
+          "2022-06-30"
+        ],
+        "loss_year": 2021,
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                27.97,
+                37.08
+              ],
+              [
+                27.97,
+                37.2
+              ],
+              [
+                27.84,
+                37.2
+              ],
+              [
+                27.84,
+                37.08
+              ],
+              [
+                27.97,
+                37.08
+              ]
+            ]
+          ]
+        },
+        "grid": {
+          "crs": "EPSG:32635",
+          "transform": [
+            30.0,
+            0.0,
+            574530.0,
+            0.0,
+            -30.0,
+            4117500.0
+          ],
+          "width": 390,
+          "height": 448
+        },
+        "before_scene": {
+          "source": "Copernicus Sentinel-2 L2A via Element 84 Earth Search COG mirror",
+          "scene_id": "S2B_35SNB_20200628_2_L2A",
+          "acquired_at": "2020-06-28T09:00:03.657000Z",
+          "retrieved_at": "2026-10-14T16:32:13.836660+00:00",
+          "grid": {
+            "crs": "EPSG:32635",
+            "transform": [
+              30.0,
+              0.0,
+              574530.0,
+              0.0,
+              -30.0,
+              4117500.0
+            ],
+            "width": 390,
+            "height": 448
+          },
+          "clear_fraction": 0.9963456200147581,
+          "quality_denominator": "AOI pixels excluding SCL water; clouds and missing pixels remain in denominator",
+          "water_fraction": 0.000216639050067041,
+          "scaling": {
+            "blue": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2020/6/S2B_35SNB_20200628_2_L2A/B02.tif"
+            },
+            "green": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2020/6/S2B_35SNB_20200628_2_L2A/B03.tif"
+            },
+            "red": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2020/6/S2B_35SNB_20200628_2_L2A/B04.tif"
+            },
+            "nir": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2020/6/S2B_35SNB_20200628_2_L2A/B08.tif"
+            },
+            "swir16": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2020/6/S2B_35SNB_20200628_2_L2A/B11.tif"
+            },
+            "swir22": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2020/6/S2B_35SNB_20200628_2_L2A/B12.tif"
+            }
+          },
+          "preprocessing": {
+            "version": "s2-l2a-30m-v1",
+            "bands": [
+              "blue",
+              "green",
+              "red",
+              "nir",
+              "swir16",
+              "swir22"
+            ],
+            "resolution_m": 30,
+            "resampling": "bilinear reflectance; nearest SCL and labels",
+            "valid_scl": [
+              4,
+              5
+            ],
+            "cloud_buffer_pixels": 2,
+            "reflectance_bounds": [
+              -0.1,
+              1.2
+            ],
+            "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+          },
+          "query": {
+            "start": "2020-06-01",
+            "end": "2020-06-30",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    27.97,
+                    37.08
+                  ],
+                  [
+                    27.97,
+                    37.2
+                  ],
+                  [
+                    27.84,
+                    37.2
+                  ],
+                  [
+                    27.84,
+                    37.08
+                  ],
+                  [
+                    27.97,
+                    37.08
+                  ]
+                ]
+              ]
+            }
+          },
+          "checksums": {
+            "reflectance.tif": "5bbd2def888ff3960c68c89490aad8ef83e129de4821696e535028c078e43c64",
+            "valid.tif": "b626d4ec4898a5d69f3c8506c06fad02445687d849ceaeeb7de5863d3219ac5d"
+          }
+        },
+        "after_scene": {
+          "source": "Copernicus Sentinel-2 L2A via Element 84 Earth Search COG mirror",
+          "scene_id": "S2A_35SNB_20220623_0_L2A",
+          "acquired_at": "2022-06-23T09:00:13.091000Z",
+          "retrieved_at": "2026-10-14T16:32:35.847060+00:00",
+          "grid": {
+            "crs": "EPSG:32635",
+            "transform": [
+              30.0,
+              0.0,
+              574530.0,
+              0.0,
+              -30.0,
+              4117500.0
+            ],
+            "width": 390,
+            "height": 448
+          },
+          "clear_fraction": 0.9692958059850929,
+          "quality_denominator": "AOI pixels excluding SCL water; clouds and missing pixels remain in denominator",
+          "water_fraction": 0.0,
+          "scaling": {
+            "blue": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2022/6/S2A_35SNB_20220623_0_L2A/B02.tif"
+            },
+            "green": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2022/6/S2A_35SNB_20220623_0_L2A/B03.tif"
+            },
+            "red": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2022/6/S2A_35SNB_20220623_0_L2A/B04.tif"
+            },
+            "nir": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2022/6/S2A_35SNB_20220623_0_L2A/B08.tif"
+            },
+            "swir16": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2022/6/S2A_35SNB_20220623_0_L2A/B11.tif"
+            },
+            "swir22": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/NB/2022/6/S2A_35SNB_20220623_0_L2A/B12.tif"
+            }
+          },
+          "preprocessing": {
+            "version": "s2-l2a-30m-v1",
+            "bands": [
+              "blue",
+              "green",
+              "red",
+              "nir",
+              "swir16",
+              "swir22"
+            ],
+            "resolution_m": 30,
+            "resampling": "bilinear reflectance; nearest SCL and labels",
+            "valid_scl": [
+              4,
+              5
+            ],
+            "cloud_buffer_pixels": 2,
+            "reflectance_bounds": [
+              -0.1,
+              1.2
+            ],
+            "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+          },
+          "query": {
+            "start": "2022-06-01",
+            "end": "2022-06-30",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    27.97,
+                    37.08
+                  ],
+                  [
+                    27.97,
+                    37.2
+                  ],
+                  [
+                    27.84,
+                    37.2
+                  ],
+                  [
+                    27.84,
+                    37.08
+                  ],
+                  [
+                    27.97,
+                    37.08
+                  ]
+                ]
+              ]
+            }
+          },
+          "checksums": {
+            "reflectance.tif": "3f720170f155d5b3de2bdcfac2be455e85c356c8b4553bd9e5aee4434b795ef4",
+            "valid.tif": "07e496122d0b7d0682826e7977f0a1ca387f2317e5be5f16b52223e895a769be"
+          }
+        },
+        "sample": "milas/sample.npz",
+        "sample_sha256": "4d20bcbb6d2f82da1c837d6711bc3527b48ea92a22c30e7d2f190f8629813042",
+        "label_source": "GFC-2025-v1.13",
+        "label_urls": {
+          "lossyear": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_lossyear_40N_020E.tif",
+          "treecover2000": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_treecover2000_40N_020E.tif",
+          "datamask": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_datamask_40N_020E.tif"
+        },
+        "valid_pixels": 54179,
+        "positive_pixels": 2212,
+        "negative_pixels": 51967,
+        "pair_clear_fraction": 0.9453239468864469,
+        "indicator_means_on_supervised_pixels": {
+          "ndvi": {
+            "before": 0.7305468916893005,
+            "after": 0.673479437828064
+          },
+          "ndmi": {
+            "before": 0.2582407295703888,
+            "after": 0.18306861817836761
+          },
+          "nbr": {
+            "before": 0.505780041217804,
+            "after": 0.42452794313430786
+          }
+        }
+      },
+      {
+        "id": "manavgat",
+        "name": "Manavgat geographic validation",
+        "split": "validation",
+        "bbox": [
+          31.43,
+          36.87,
+          31.56,
+          36.99
+        ],
+        "before": [
+          "2020-06-01",
+          "2020-06-30"
+        ],
+        "after": [
+          "2022-06-01",
+          "2022-06-30"
+        ],
+        "loss_year": 2021,
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                31.56,
+                36.87
+              ],
+              [
+                31.56,
+                36.99
+              ],
+              [
+                31.43,
+                36.99
+              ],
+              [
+                31.43,
+                36.87
+              ],
+              [
+                31.56,
+                36.87
+              ]
+            ]
+          ]
+        },
+        "grid": {
+          "crs": "EPSG:32636",
+          "transform": [
+            30.0,
+            0.0,
+            360060.0,
+            0.0,
+            -30.0,
+            4094940.0
+          ],
+          "width": 394,
+          "height": 451
+        },
+        "before_scene": {
+          "source": "Copernicus Sentinel-2 L2A via Element 84 Earth Search COG mirror",
+          "scene_id": "S2A_36SUF_20200630_1_L2A",
+          "acquired_at": "2020-06-30T08:50:12.686000Z",
+          "retrieved_at": "2026-10-14T16:33:35.146941+00:00",
+          "grid": {
+            "crs": "EPSG:32636",
+            "transform": [
+              30.0,
+              0.0,
+              360060.0,
+              0.0,
+              -30.0,
+              4094940.0
+            ],
+            "width": 394,
+            "height": 451
+          },
+          "clear_fraction": 0.9581793308692939,
+          "quality_denominator": "AOI pixels excluding SCL water; clouds and missing pixels remain in denominator",
+          "water_fraction": 0.027239670579171312,
+          "scaling": {
+            "blue": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2020/6/S2A_36SUF_20200630_1_L2A/B02.tif"
+            },
+            "green": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2020/6/S2A_36SUF_20200630_1_L2A/B03.tif"
+            },
+            "red": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2020/6/S2A_36SUF_20200630_1_L2A/B04.tif"
+            },
+            "nir": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2020/6/S2A_36SUF_20200630_1_L2A/B08.tif"
+            },
+            "swir16": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2020/6/S2A_36SUF_20200630_1_L2A/B11.tif"
+            },
+            "swir22": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2020/6/S2A_36SUF_20200630_1_L2A/B12.tif"
+            }
+          },
+          "preprocessing": {
+            "version": "s2-l2a-30m-v1",
+            "bands": [
+              "blue",
+              "green",
+              "red",
+              "nir",
+              "swir16",
+              "swir22"
+            ],
+            "resolution_m": 30,
+            "resampling": "bilinear reflectance; nearest SCL and labels",
+            "valid_scl": [
+              4,
+              5
+            ],
+            "cloud_buffer_pixels": 2,
+            "reflectance_bounds": [
+              -0.1,
+              1.2
+            ],
+            "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+          },
+          "query": {
+            "start": "2020-06-01",
+            "end": "2020-06-30",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    31.56,
+                    36.87
+                  ],
+                  [
+                    31.56,
+                    36.99
+                  ],
+                  [
+                    31.43,
+                    36.99
+                  ],
+                  [
+                    31.43,
+                    36.87
+                  ],
+                  [
+                    31.56,
+                    36.87
+                  ]
+                ]
+              ]
+            }
+          },
+          "checksums": {
+            "reflectance.tif": "8810531f6e199816ceca3ca05a45667d203edf3fb69a3708ed45600248ca584d",
+            "valid.tif": "0f4b203207113b90b4d30b9274eff4421565e20de2601079e0b62892aeace03c"
+          }
+        },
+        "after_scene": {
+          "source": "Copernicus Sentinel-2 L2A via Element 84 Earth Search COG mirror",
+          "scene_id": "S2A_36SUF_20220630_0_L2A",
+          "acquired_at": "2022-06-30T08:50:20.544000Z",
+          "retrieved_at": "2026-10-14T16:33:59.759738+00:00",
+          "grid": {
+            "crs": "EPSG:32636",
+            "transform": [
+              30.0,
+              0.0,
+              360060.0,
+              0.0,
+              -30.0,
+              4094940.0
+            ],
+            "width": 394,
+            "height": 451
+          },
+          "clear_fraction": 0.9822311866685877,
+          "quality_denominator": "AOI pixels excluding SCL water; clouds and missing pixels remain in denominator",
+          "water_fraction": 0.027706603008212174,
+          "scaling": {
+            "blue": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2022/6/S2A_36SUF_20220630_0_L2A/B02.tif"
+            },
+            "green": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2022/6/S2A_36SUF_20220630_0_L2A/B03.tif"
+            },
+            "red": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2022/6/S2A_36SUF_20220630_0_L2A/B04.tif"
+            },
+            "nir": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2022/6/S2A_36SUF_20220630_0_L2A/B08.tif"
+            },
+            "swir16": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2022/6/S2A_36SUF_20220630_0_L2A/B11.tif"
+            },
+            "swir22": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/36/S/UF/2022/6/S2A_36SUF_20220630_0_L2A/B12.tif"
+            }
+          },
+          "preprocessing": {
+            "version": "s2-l2a-30m-v1",
+            "bands": [
+              "blue",
+              "green",
+              "red",
+              "nir",
+              "swir16",
+              "swir22"
+            ],
+            "resolution_m": 30,
+            "resampling": "bilinear reflectance; nearest SCL and labels",
+            "valid_scl": [
+              4,
+              5
+            ],
+            "cloud_buffer_pixels": 2,
+            "reflectance_bounds": [
+              -0.1,
+              1.2
+            ],
+            "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+          },
+          "query": {
+            "start": "2022-06-01",
+            "end": "2022-06-30",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    31.56,
+                    36.87
+                  ],
+                  [
+                    31.56,
+                    36.99
+                  ],
+                  [
+                    31.43,
+                    36.99
+                  ],
+                  [
+                    31.43,
+                    36.87
+                  ],
+                  [
+                    31.56,
+                    36.87
+                  ]
+                ]
+              ]
+            }
+          },
+          "checksums": {
+            "reflectance.tif": "cde6bdfa31b635fedad78d99439860a1cbfcac944e8e1827cc57e3b2540c1c8d",
+            "valid.tif": "bf7906060051c5df2bddfd1cd52473d7a21cb849f51b90f428332e3ca5f48f00"
+          }
+        },
+        "sample": "manavgat/sample.npz",
+        "sample_sha256": "bffa05dcbbcdaf183c56179b373aa2f1025616b3426b9a1337b233e3a67ee84a",
+        "label_source": "GFC-2025-v1.13",
+        "label_urls": {
+          "lossyear": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_lossyear_40N_030E.tif",
+          "treecover2000": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_treecover2000_40N_030E.tif",
+          "datamask": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_datamask_40N_030E.tif"
+        },
+        "valid_pixels": 24715,
+        "positive_pixels": 23439,
+        "negative_pixels": 1276,
+        "pair_clear_fraction": 0.8949823854491429,
+        "indicator_means_on_supervised_pixels": {
+          "ndvi": {
+            "before": 0.7152044177055359,
+            "after": 0.24829736351966858
+          },
+          "ndmi": {
+            "before": 0.24044905602931976,
+            "after": -0.17669184505939484
+          },
+          "nbr": {
+            "before": 0.5134501457214355,
+            "after": -0.07075246423482895
+          }
+        }
+      },
+      {
+        "id": "izmir",
+        "name": "Izmir geographic and temporal test",
+        "split": "test",
+        "bbox": [
+          26.96,
+          38.13,
+          27.09,
+          38.25
+        ],
+        "before": [
+          "2018-06-01",
+          "2018-06-30"
+        ],
+        "after": [
+          "2020-06-01",
+          "2020-06-30"
+        ],
+        "loss_year": 2019,
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                27.09,
+                38.13
+              ],
+              [
+                27.09,
+                38.25
+              ],
+              [
+                26.96,
+                38.25
+              ],
+              [
+                26.96,
+                38.13
+              ],
+              [
+                27.09,
+                38.13
+              ]
+            ]
+          ]
+        },
+        "grid": {
+          "crs": "EPSG:32635",
+          "transform": [
+            30.0,
+            0.0,
+            496470.0,
+            0.0,
+            -30.0,
+            4233570.0
+          ],
+          "width": 381,
+          "height": 445
+        },
+        "before_scene": {
+          "source": "Copernicus Sentinel-2 L2A via Element 84 Earth Search COG mirror",
+          "scene_id": "S2B_35SMC_20180612_1_L2A",
+          "acquired_at": "2018-06-12T09:09:44.451000Z",
+          "retrieved_at": "2026-10-14T16:34:32.820219+00:00",
+          "grid": {
+            "crs": "EPSG:32635",
+            "transform": [
+              30.0,
+              0.0,
+              496470.0,
+              0.0,
+              -30.0,
+              4233570.0
+            ],
+            "width": 381,
+            "height": 445
+          },
+          "clear_fraction": 0.9965279849188073,
+          "quality_denominator": "AOI pixels excluding SCL water; clouds and missing pixels remain in denominator",
+          "water_fraction": 0.003981080952607311,
+          "scaling": {
+            "blue": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2018/6/S2B_35SMC_20180612_1_L2A/B02.tif"
+            },
+            "green": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2018/6/S2B_35SMC_20180612_1_L2A/B03.tif"
+            },
+            "red": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2018/6/S2B_35SMC_20180612_1_L2A/B04.tif"
+            },
+            "nir": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2018/6/S2B_35SMC_20180612_1_L2A/B08.tif"
+            },
+            "swir16": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2018/6/S2B_35SMC_20180612_1_L2A/B11.tif"
+            },
+            "swir22": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2018/6/S2B_35SMC_20180612_1_L2A/B12.tif"
+            }
+          },
+          "preprocessing": {
+            "version": "s2-l2a-30m-v1",
+            "bands": [
+              "blue",
+              "green",
+              "red",
+              "nir",
+              "swir16",
+              "swir22"
+            ],
+            "resolution_m": 30,
+            "resampling": "bilinear reflectance; nearest SCL and labels",
+            "valid_scl": [
+              4,
+              5
+            ],
+            "cloud_buffer_pixels": 2,
+            "reflectance_bounds": [
+              -0.1,
+              1.2
+            ],
+            "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+          },
+          "query": {
+            "start": "2018-06-01",
+            "end": "2018-06-30",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    27.09,
+                    38.13
+                  ],
+                  [
+                    27.09,
+                    38.25
+                  ],
+                  [
+                    26.96,
+                    38.25
+                  ],
+                  [
+                    26.96,
+                    38.13
+                  ],
+                  [
+                    27.09,
+                    38.13
+                  ]
+                ]
+              ]
+            }
+          },
+          "checksums": {
+            "reflectance.tif": "adad284712ac59d47a152be8a53b4f52386906bf88de3d2dc4d3949cb6dc3a32",
+            "valid.tif": "bb565a0a1e0d3b84513aad1b9d1405d6598375a153f332c535f62fa63f7628dd"
+          }
+        },
+        "after_scene": {
+          "source": "Copernicus Sentinel-2 L2A via Element 84 Earth Search COG mirror",
+          "scene_id": "S2A_35SMC_20200626_1_L2A",
+          "acquired_at": "2020-06-26T09:09:51.955000Z",
+          "retrieved_at": "2026-10-14T16:34:51.719544+00:00",
+          "grid": {
+            "crs": "EPSG:32635",
+            "transform": [
+              30.0,
+              0.0,
+              496470.0,
+              0.0,
+              -30.0,
+              4233570.0
+            ],
+            "width": 381,
+            "height": 445
+          },
+          "clear_fraction": 0.9951119360672273,
+          "quality_denominator": "AOI pixels excluding SCL water; clouds and missing pixels remain in denominator",
+          "water_fraction": 0.004426724342824547,
+          "scaling": {
+            "blue": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2020/6/S2A_35SMC_20200626_1_L2A/B02.tif"
+            },
+            "green": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2020/6/S2A_35SMC_20200626_1_L2A/B03.tif"
+            },
+            "red": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2020/6/S2A_35SMC_20200626_1_L2A/B04.tif"
+            },
+            "nir": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2020/6/S2A_35SMC_20200626_1_L2A/B08.tif"
+            },
+            "swir16": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2020/6/S2A_35SMC_20200626_1_L2A/B11.tif"
+            },
+            "swir22": {
+              "effective_scale": 0.0001,
+              "effective_offset": 0.0,
+              "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/35/S/MC/2020/6/S2A_35SMC_20200626_1_L2A/B12.tif"
+            }
+          },
+          "preprocessing": {
+            "version": "s2-l2a-30m-v1",
+            "bands": [
+              "blue",
+              "green",
+              "red",
+              "nir",
+              "swir16",
+              "swir22"
+            ],
+            "resolution_m": 30,
+            "resampling": "bilinear reflectance; nearest SCL and labels",
+            "valid_scl": [
+              4,
+              5
+            ],
+            "cloud_buffer_pixels": 2,
+            "reflectance_bounds": [
+              -0.1,
+              1.2
+            ],
+            "network_scale": "clip(-0.1,1.2)/0.3; invalid pixels zero"
+          },
+          "query": {
+            "start": "2020-06-01",
+            "end": "2020-06-30",
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    27.09,
+                    38.13
+                  ],
+                  [
+                    27.09,
+                    38.25
+                  ],
+                  [
+                    26.96,
+                    38.25
+                  ],
+                  [
+                    26.96,
+                    38.13
+                  ],
+                  [
+                    27.09,
+                    38.13
+                  ]
+                ]
+              ]
+            }
+          },
+          "checksums": {
+            "reflectance.tif": "0b9532ab4d83134cbe8c7c6995fa71531eee96b048328306bc9464eb21cf3326",
+            "valid.tif": "27b4aebf6bb0f99da802a40f9cdbd236e5833e08d2ed3d1bb04a2ca595173549"
+          }
+        },
+        "sample": "izmir/sample.npz",
+        "sample_sha256": "252864d3ec38f26f3e9e14eb648a4adf641a4f69354bdab8d6aa21ff7ef3d2c3",
+        "label_source": "GFC-2025-v1.13",
+        "label_urls": {
+          "lossyear": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_lossyear_40N_020E.tif",
+          "treecover2000": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_treecover2000_40N_020E.tif",
+          "datamask": "https://storage.googleapis.com/earthenginepartners-hansen/GFC-2025-v1.13/Hansen_GFC-2025-v1.13_datamask_40N_020E.tif"
+        },
+        "valid_pixels": 62667,
+        "positive_pixels": 9913,
+        "negative_pixels": 52754,
+        "pair_clear_fraction": 0.9827951281370727,
+        "indicator_means_on_supervised_pixels": {
+          "ndvi": {
+            "before": 0.689967155456543,
+            "after": 0.6301860213279724
+          },
+          "ndmi": {
+            "before": 0.20586349070072174,
+            "after": 0.13356046378612518
+          },
+          "nbr": {
+            "before": 0.4463573396205902,
+            "after": 0.3644639849662781
+          }
+        }
+      }
+    ],
+    "label_definition": "Hansen annual gross tree-cover loss in target calendar year, within year-2000 canopy >=30%",
+    "label_limitations": "Algorithmic Landsat reference, not independent field truth. Stable means no mapped loss, not verified ecological intactness.",
+    "split_policy": "Whole nonoverlapping regions with >=0.05 degree buffer; Izmir also uses an earlier loss year"
+  }
+}

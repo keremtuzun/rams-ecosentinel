@@ -1,0 +1,6 @@
+.env*
+.vercel
+/models/
+tests
+__pycache__
+.pytest_cache

@@ -1,0 +1,35 @@
+{
+  "verified_at_utc": "2026-10-14T21:26:52.710Z",
+  "job_id": "02f15524-416d-4544-b8a7-52e76f5c7b73",
+  "status": "succeeded",
+  "request_dates": {
+    "before_start": "2020-06-01",
+    "before_end": "2020-06-30",
+    "after_start": "2020-07-01",
+    "after_end": "2020-07-29",
+    "module": "habitat",
+    "display_name": "Se\u00c3\u00a7ili alan"
+  },
+  "sources": [
+    {
+      "scene_id": "S2A_35TNE_20200616_0_L2A",
+      "acquired_at": "2020-06-16T09:09:20.064000Z"
+    },
+    {
+      "scene_id": "S2A_35TNE_20200726_1_L2A",
+      "acquired_at": "2020-07-26T09:09:19.541000Z"
+    }
+  ],
+  "joint_clear_fraction": 0.7451480907856747,
+  "browser_pdf_download_sha256": "5ca9dadfc4f409e7063ac4fdbef1c551bbedbe9c74f533d269d8683ce13f71f3",
+  "notes": [
+    "The user-selected endpoints 2020-06-30 and 2020-07-29 were retained.",
+    "The second search window was shortened to start on 2020-07-01 to avoid duplicate observation days.",
+    "Backend nonoverlap and original data-quality gates were preserved."
+  ],
+  "deployed_web_revision": "dpl_7tkYAaXWoa63PvyJbWmhW9W24bjS",
+  "published_url": "https://rams-ecosentinel.vercel.app/",
+  "frontend_tests_passed": 20,
+  "derived_windows_cloud_validation_http": 200,
+  "deployed_at_utc": "2026-10-14T21:29:42.789231+00:00"
+}
