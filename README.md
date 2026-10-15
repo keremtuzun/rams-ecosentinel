@@ -2,7 +2,8 @@
 
 Live application: [rams-ecosentinel.vercel.app](https://rams-ecosentinel.vercel.app/).
 
-The `main` branch automatically deploys both Vercel projects: `apps/web` serves the
+After the GitHub Actions checks pass, the `main` branch automatically deploys both
+connected Vercel projects using project-scoped deploy hooks: `apps/web` serves the
 website and `apps/backend` serves the analysis API. The API build bundles the current
 `ecosentinel/` source from this repository. Build-time model weights and completed
 public studies are restored from immutable, SHA-256-pinned bundles in private Blob
@@ -11,6 +12,8 @@ require `ECOSENTINEL_BUILD_ASSET_PATH` and `ECOSENTINEL_BUILD_ASSET_SHA256` in V
 To deliberately update those artifact versions, run `python -m scripts.package_build_assets`
 on a machine with the verified artifacts, upload the generated bundles to the existing
 private store, and update those references. Normal source edits need only a push to `main`.
+The hook URLs are held only in GitHub Secrets (`ECOSENTINEL_WEB_DEPLOY_HOOK` and
+`ECOSENTINEL_BACKEND_DEPLOY_HOOK`); fork pull requests cannot run the publishing job.
 
 Environmental research software developed by **FRC Team 7729 RAMs**, **FIRST BIOCORE 2027**.
 This release contains genuine Sentinel-2 acquisition, task-specific PyTorch training,

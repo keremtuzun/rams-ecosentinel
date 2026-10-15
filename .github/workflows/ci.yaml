@@ -1,5 +1,7 @@
 name: Research software checks
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
   python:
     runs-on: ubuntu-latest
@@ -31,3 +33,52 @@ jobs:
       - run: npm run build
       - run: npx playwright install --with-deps chromium
       - run: npm test
+  deploy:
+    name: Publish main to Vercel
+    needs: [python, web]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ecosentinel-production
+      cancel-in-progress: false
+    steps:
+      - name: Skip a superseded commit
+        id: current
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          latest=$(gh api "repos/$REPOSITORY/git/ref/heads/main" --jq '.object.sha')
+          if [ "$latest" = "$COMMIT_SHA" ]; then
+            echo 'deploy=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'deploy=false' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Trigger both connected Vercel projects
+        if: steps.current.outputs.deploy == 'true'
+        env:
+          WEB_DEPLOY_HOOK: ${{ secrets.ECOSENTINEL_WEB_DEPLOY_HOOK }}
+          BACKEND_DEPLOY_HOOK: ${{ secrets.ECOSENTINEL_BACKEND_DEPLOY_HOOK }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+          from urllib.parse import urlsplit
+
+          for name, project in [
+              ('BACKEND', 'prj_YSDrylTnRPTxQVmxHdtzXwSAYUPO'),
+              ('WEB', 'prj_2nAcc4NUfMoS59KuCoXQKjXnr0WQ'),
+          ]:
+              url = os.environ[name + '_DEPLOY_HOOK'].strip()
+              parsed = urlsplit(url)
+              if parsed.scheme != 'https' or parsed.netloc != 'api.vercel.com' or not parsed.path.startswith('/v1/integrations/deploy/' + project + '/'):
+                  raise RuntimeError('Missing or incorrect production deploy hook')
+              request = urllib.request.Request(url, data=b'', method='POST')
+              with urllib.request.urlopen(request, timeout=60) as response:
+                  result = json.load(response)
+              if not result.get('job', {}).get('id'):
+                  raise RuntimeError('Vercel did not accept the deployment')
+              print(name + ': production build accepted')
+          PY
