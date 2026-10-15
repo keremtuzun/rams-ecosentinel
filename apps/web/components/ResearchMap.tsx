@@ -123,14 +123,14 @@ export default function ResearchMap(props: Props) {
         id: "aoi-fill",
         type: "fill",
         source: "aoi",
-        paint: { "fill-color": "#dcecd6", "fill-opacity": 0.04 },
+        paint: { "fill-color": "#ffd600", "fill-opacity": 0.04 },
       });
       m.addLayer({
         id: "aoi-outline",
         type: "line",
         source: "aoi",
         paint: {
-          "line-color": "#e8edbb",
+          "line-color": "#ffd600",
           "line-width": 2,
           "line-dasharray": [3, 2],
         },
@@ -152,7 +152,7 @@ export default function ResearchMap(props: Props) {
         source: "drawing",
         filter: ["==", ["geometry-type"], "Point"],
         paint: {
-          "circle-color": "#203e32",
+          "circle-color": "#080800",
           "circle-radius": 5,
           "circle-stroke-color": "#fff",
           "circle-stroke-width": 2,

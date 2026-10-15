@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "RAMS EcoSentinel · Doğadaki değişimi gör",
   description:
     "Bölgeni seç, uydu görüntülerini karşılaştır, doğadaki değişimi gör. FRC Team 7729 RAMs.",
+  icons: { icon: "/brand/rams-7729.png", apple: "/brand/rams-7729.png" },
 };
 export default function RootLayout({
   children,

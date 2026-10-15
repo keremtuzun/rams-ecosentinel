@@ -1,5 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
   API,
@@ -452,7 +453,15 @@ export default function Workspace() {
       <div id="app-shell">
         <header className="topbar">
           <a className="brand" href="/" aria-label="RAMS EcoSentinel ana sayfa">
-            <span className="brand-mark">R</span>
+            <Image
+              className="brand-logo"
+              src="/brand/rams-7729.png"
+              width={48}
+              height={48}
+              alt="RAMs 7729 koç logosu"
+              preload
+              unoptimized
+            />
             <span>
               RAMS <b>EcoSentinel</b>
               <small>DOĞADAKİ DEĞİŞİMİ GÖR</small>
