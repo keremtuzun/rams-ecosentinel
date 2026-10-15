@@ -24,6 +24,14 @@ jobs:
         run: docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml up -d --wait --wait-timeout 120 db api worker web
       - name: Run real database concurrency and worker fault tests
         run: docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml run --rm --no-deps verify
+      - name: Interrupt only the isolated database and verify recovery
+        run: |
+          docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml stop db
+          sleep 5
+          docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml run --rm --no-deps --entrypoint python verify -c 'import httpx; r=httpx.get("http://web:3000/health"); assert r.status_code==503, r.text'
+          docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml start --wait db
+          docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml run --rm --no-deps --entrypoint python verify -c 'import httpx; r=httpx.get("http://web:3000/health"); assert r.status_code==200, r.text'
+          test "$(docker inspect --format '{{.State.Running}}' $(docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml ps -aq worker))" = true
       - name: Check that builder cannot read local credentials
         if: always()
         run: |

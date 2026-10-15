@@ -109,7 +109,36 @@ def test_expired_lease_recovery_rejects_old_owner_and_stops_at_two(queue):
         test_worker.test_transient_compute_failure_retries_at_most_twice,
         test_worker.test_real_subprocess_timeout_kills_child_and_blocks_exports,
         test_worker.test_child_exit_after_commit_does_not_crash_worker_or_revert_success,
+        test_worker.test_result_api_only_reads_committed_attempt,
+        test_worker.test_additive_migration_preserves_old_rows,
     ],
 )
 def test_worker_fault_contracts_on_postgresql(case, queue, monkeypatch, tmp_path):
     case(queue, monkeypatch, tmp_path)
+
+
+def test_simultaneous_migrations_on_fresh_schema_are_serialized(queue):
+    with queue.engine.begin() as connection:
+        connection.execute(text("DROP TABLE jobs"))
+
+    def migrate(_):
+        other = Queue(queue.engine.url)
+        try:
+            other.migrate()
+        finally:
+            other.engine.dispose()
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        list(pool.map(migrate, range(8)))
+    assert queue.submit(request())
+
+
+def test_statement_timeout_rolls_back_and_connection_pool_recovers(queue):
+    from sqlalchemy.exc import DBAPIError
+
+    with pytest.raises(DBAPIError) as caught:
+        with queue.engine.begin() as connection:
+            connection.execute(text("SET LOCAL statement_timeout='100ms'"))
+            connection.execute(text("SELECT pg_sleep(1)"))
+    assert caught.value.orig.sqlstate == "57014"
+    assert queue.submit(request())

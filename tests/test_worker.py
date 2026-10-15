@@ -143,3 +143,35 @@ def test_child_exit_after_commit_does_not_crash_worker_or_revert_success(queue, 
     monkeypatch.setattr(worker.subprocess, "run", committed_then_exited)
     worker.run_worker(once=True)
     assert queue.get(job_id)["status"] == "succeeded"
+
+
+def test_result_api_only_reads_committed_attempt(queue, monkeypatch, tmp_path):
+    from fastapi.testclient import TestClient
+    import ecosentinel.api as api
+
+    monkeypatch.setattr(api, "ARTIFACTS", tmp_path)
+    job_id = queue.submit(request())
+    _, owner, _ = queue.claim()
+    root = tmp_path / "jobs" / job_id
+    destination = root / owner
+    destination.mkdir(parents=True)
+    (root / "report.json").write_text(json.dumps({"fixture_only": True, "attempt": "stale"}))
+    (destination / "report.json").write_text(json.dumps({"fixture_only": True, "attempt": "committed"}))
+    queue.finish(job_id, owner, "succeeded")
+    with TestClient(api.create_app(queue)) as client:
+        assert client.get(f"/api/jobs/{job_id}").json()["report"]["attempt"] == "committed"
+        assert client.get(f"/api/jobs/{job_id}/export/json").json()["attempt"] == "committed"
+        assert client.get(f"/api/jobs/{job_id}/files/report.json").json()["attempt"] == "committed"
+
+
+def test_additive_migration_preserves_old_rows(queue, monkeypatch, tmp_path):
+    from sqlalchemy import text
+
+    job_id = queue.submit(request())
+    with queue.engine.begin() as connection:
+        connection.execute(text("ALTER TABLE jobs DROP COLUMN result_owner"))
+    queue.migrate()
+    queue.migrate()
+    record = queue.get(job_id)
+    assert record["status"] == "queued" and record["result_owner"] is None
+    assert record["request"] == json.loads(json.dumps(request()))
