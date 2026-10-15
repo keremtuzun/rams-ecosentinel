@@ -1,0 +1,37 @@
+name: Isolated Docker and PostgreSQL checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  containers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      COMPOSE_PROJECT_NAME: ecosentinel-isolated-${{ github.run_id }}-${{ github.run_attempt }}
+      POSTGRES_PASSWORD: isolated-test-only
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Plant non-secret build-context canaries
+        run: |
+          echo ECOSENTINEL_ISOLATION_CANARY=fixture-only > apps/web/.env.local
+          mkdir -p apps/web/.vercel
+          echo '{"fixture_only":true}' > apps/web/.vercel/project.json
+      - name: Build actual API and web images, plus isolated test runner
+        run: docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml build
+      - name: Start isolated PostGIS, API, worker and web
+        run: docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml up -d --wait --wait-timeout 120 db api worker web
+      - name: Run real database concurrency and worker fault tests
+        run: docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml run --rm --no-deps verify
+      - name: Check that builder cannot read local credentials
+        if: always()
+        run: |
+          docker build --target builder -f docker/web.Dockerfile -t ecosentinel-context-check .
+          docker run --rm --network none --entrypoint node ecosentinel-context-check -e 'const f=require("fs"); for(const p of ["/app/.env.local","/app/.vercel/project.json"]) if(f.existsSync(p)) throw Error("Build context leaked "+p)'
+      - name: Runtime diagnostics
+        if: always()
+        run: docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml logs --no-color --tail 80
+      - name: Remove only this ephemeral stack and its volumes
+        if: always()
+        run: docker compose --env-file /dev/null -f compose.yaml -f docker/compose.verify.yaml down --volumes --remove-orphans

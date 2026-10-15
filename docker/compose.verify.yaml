@@ -1,0 +1,38 @@
+# Used only together with compose.yaml, on an ephemeral runner. No host artifacts or credentials.
+services:
+  db:
+    environment:
+      POSTGRES_DB: ecosentinel_isolated
+    volumes: !override
+      - isolated_database:/var/lib/postgresql/data
+      - ./database/migrations:/docker-entrypoint-initdb.d:ro
+  api:
+    environment:
+      DATABASE_URL: postgresql+psycopg://ecosentinel:isolated-test-only@db:5432/ecosentinel_isolated
+    volumes: !override
+      - isolated_artifacts:/app/artifacts
+  worker:
+    environment:
+      DATABASE_URL: postgresql+psycopg://ecosentinel:isolated-test-only@db:5432/ecosentinel_isolated
+    volumes: !override
+      - isolated_artifacts:/app/artifacts
+  verify:
+    build:
+      context: .
+      dockerfile: docker/verify.Dockerfile
+      additional_contexts:
+        base: service:api
+    environment:
+      ECOSENTINEL_TEST_POSTGRES_URL: postgresql+psycopg://ecosentinel:isolated-test-only@db:5432/ecosentinel_isolated
+      ECOSENTINEL_TEST_WEB_URL: http://web:3000
+    volumes:
+      - isolated_artifacts:/app/artifacts
+    depends_on:
+      db:
+        condition: service_healthy
+networks:
+  default:
+    internal: true
+volumes:
+  isolated_database:
+  isolated_artifacts:
