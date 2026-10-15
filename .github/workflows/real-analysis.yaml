@@ -50,24 +50,26 @@ jobs:
       - name: Prepare real browser
         run: |
           npm ci --prefix apps/web
-          cd apps/web
-          npx playwright install --with-deps chromium
+          BROWSER_VERSION=$(node -p 'require("./apps/web/node_modules/@playwright/test/package.json").version')
+          echo "PLAYWRIGHT_IMAGE=mcr.microsoft.com/playwright:v${BROWSER_VERSION}-noble" >> "$GITHUB_ENV"
+          docker pull "mcr.microsoft.com/playwright:v${BROWSER_VERSION}-noble"
+          mkdir -p "$RUNNER_TEMP/browser"
       - name: Submit one genuine analysis from the browser
         run: |
-          node scripts/verify_real_browser.mjs submit "$RUNNER_TEMP/job.json"
-          echo "ECOSENTINEL_REAL_JOB_ID=$(python -c 'import json,os; print(json.load(open(os.environ["RUNNER_TEMP"]+"/job.json"))["id"])')" >> "$GITHUB_ENV"
+          docker run --rm --network "${COMPOSE_PROJECT_NAME}_default" -v "$PWD:/work:ro" -v "$RUNNER_TEMP/browser:/output" -w /work -e ECOSENTINEL_TEST_BROWSER_URL=http://web:3000 "$PLAYWRIGHT_IMAGE" node scripts/verify_real_browser.mjs submit /output/job.json
+          echo "ECOSENTINEL_REAL_JOB_ID=$(python -c 'import json,os; print(json.load(open(os.environ["RUNNER_TEMP"]+"/browser/job.json"))["id"])')" >> "$GITHUB_ENV"
       - name: Validate actual rasters provenance reports and every export
         run: |
           docker compose --env-file /dev/null run --rm --no-deps -e ECOSENTINEL_REAL_JOB_ID --entrypoint python verify /app/scripts/verify_real_container.py
       - name: Review actual completed result and browser downloads
-        run: node scripts/verify_real_browser.mjs review "$RUNNER_TEMP/job.json"
+        run: docker run --rm --network "${COMPOSE_PROJECT_NAME}_default" -v "$PWD:/work:ro" -v "$RUNNER_TEMP/browser:/output" -w /work -e ECOSENTINEL_TEST_BROWSER_URL=http://web:3000 "$PLAYWRIGHT_IMAGE" node scripts/verify_real_browser.mjs review /output/job.json
       - name: Collect only generated analysis outputs and encrypt them
         if: always() && env.ECOSENTINEL_REAL_JOB_ID != ''
         env:
           OUTPUT_KEY: ${{ secrets.TEMP_ECOSENTINEL_OUTPUT_KEY }}
         run: |
           docker compose --env-file /dev/null cp api:/app/artifacts/real-verification "$RUNNER_TEMP/real-verification"
-          for picture in "$RUNNER_TEMP/job.json.desktop.png" "$RUNNER_TEMP/job.json.mobile.png"; do
+          for picture in "$RUNNER_TEMP/browser/job.json.desktop.png" "$RUNNER_TEMP/browser/job.json.mobile.png"; do
             if test -f "$picture"; then cp "$picture" "$RUNNER_TEMP/real-verification/"; fi
           done
           python -m pip install cryptography

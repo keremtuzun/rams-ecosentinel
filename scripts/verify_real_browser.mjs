@@ -6,6 +6,12 @@ const require = createRequire(
 );
 const { chromium, expect } = require("@playwright/test");
 const [phase, filename] = process.argv.slice(2);
+const origin =
+  process.env.ECOSENTINEL_TEST_BROWSER_URL || "http://127.0.0.1:3000";
+if (!["http://127.0.0.1:3000", "http://web:3000"].includes(origin))
+  throw new Error(
+    "Browser verifier only supports the isolated Docker frontend",
+  );
 const browser = await chromium.launch({ headless: true });
 try {
   const context = await browser.newContext({
@@ -17,7 +23,7 @@ try {
   const page = await context.newPage();
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("http://127.0.0.1:3000/");
+  await page.goto(origin);
   if (phase === "submit") {
     const request = {
       geometry: {
