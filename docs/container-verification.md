@@ -67,5 +67,66 @@ counts are recorded under ignored `artifacts/deployment/container-checks/`.
 The legacy standalone `.env` path requires an explicitly chosen local PostgreSQL password;
 bind-mounted artifacts must be writable by container UID 10001 on Linux. The isolated
 verification uses fresh Docker-managed volumes and never changes host artifact permissions.
-Actual trained-model inference in these containers is NOT_RUN; the earlier Vercel real
-Sentinel-2/ONNX evidence remains separate. No scientific threshold or model weight changed.
+Actual trained-model inference in these containers is now verified separately below;
+the earlier Vercel real Sentinel-2/ONNX evidence remains separate. No scientific
+threshold or model weight changed.
+
+## Genuine Sentinel-2 / ONNX Docker run
+
+Manual run [38778853803](https://github.com/keremtuzun/rams-ecosentinel/actions/runs/38778853803)
+passed on source commit `ffaac89cd8459f5014c0f0250d2a6b2146cadcbd`.
+This is a fresh acquisition and actual trained-model inference, not fixture evidence.
+Chromium, web, API, PostGIS and the verifier run on the internal Docker network. Only
+the worker has a second network for public Earth Search / Sentinel COG acquisition.
+No Vercel API, queue, Blob or production database credentials enter these containers.
+Exactly one job was submitted to the isolated stack; no production analysis was submitted.
+
+The genuine serving model is mounted read-only outside the build context, transported
+through temporary chunked GitHub secrets and pinned by its bundle SHA-256. Neither the
+model nor the completed analysis is committed. Generated results are encrypted with
+AES-256-GCM before artifact upload and decrypted only in ignored local artifacts.
+The workflow always removes its containers, named volumes and runner model directory.
+Temporary transfer secrets are removed after verification.
+
+The first preflight, run `38777944445`, reproduced `ModuleNotFoundError: onnxruntime`
+before any satellite download. The API/worker Docker image now installs the `onnx`
+extra, pinned to the same `onnxruntime==1.24.3` used by the evaluated conversion.
+The corrected image loads the provenance-validated model before accepting the job.
+A separate failed browser probe (`38778276695`) used a host-published port on the
+internal-only network. Moving Chromium into that network fixed the test setup without
+opening the API or database to an external network; that probe submitted no job.
+
+Measured result:
+
+| Check | Actual evidence |
+|---|---|
+| Acquisition | `S2A_36TVK_20220620_0_L2A` and `S2B_36TVK_20240624_1_L2A`; fresh retrieval timestamps, STAC records, scaling, six aligned reflectance bands and source-index pixel counts verified. |
+| Trained checkpoint | `c8463288bb16fba7a43d218004fba3851505b34025f33b72bf2b9db657a4b358`; ONNX file `c55049b746a265707b1d90690f739a95a9e8bf58ae4016f1ad561720e1a2d4c8`, matching the installed local artifact. |
+| Completion | Job `cb0ada7b-e6ca-44c9-8652-2fd7c017babf`, one compute attempt, ONNX CPU runtime, committed owner and new generation timestamp. |
+| Concave AOI | 145,976 selected pixels / 268,965 grid pixels. Joint clear fraction **0.9938688551542719**. The incorrect full-rectangle denominator would give **0.539404755265555**. Padding stays masked. |
+| Output consistency | 24,557 eligible pixels, 429 candidate pixels / 38.61 ha / 13 polygons. Recomputed indices match raw reflectance, report and CSV. These are candidate patterns, not confirmed ecological loss. |
+| All available exports | PDF (1,513,034 bytes; two pages rendered and visually reviewed), CSV, JSON, GeoJSON; score, mask and eight-band indices GeoTIFFs. The **5,764,360-byte** indices download matches the worker file SHA-256 through the real web proxy. PNG files also match and decode. |
+| Point inspection | An eligible point returns `0.002178668975830078`, matching the score raster; polygon padding returns null; outside-grid coordinates return 422. |
+| Browser | Real completed result, actual PDF/CSV downloads, refresh recovery, 390 px overflow and JavaScript error checks passed without mocked API responses. External basemap tiles are unavailable on the internal-only browser network; the genuine analysis overlay remains usable. |
+
+The optional second-seed uncertainty GeoTIFF is **BLOCKED**: no compatible second
+ONNX model is installed. The report explicitly says unavailable, the UI hides its
+download and its file route returns 404. No uncertainty surface was fabricated.
+Production signed Blob redirects and cloud queue delivery are **NOT_RUN in this
+Docker exercise**; the separate prior cloud checks remain separate evidence.
+
+Detailed exports, source rasters, verification JSON, screenshots and rendered PDF pages
+are retained only under ignored `artifacts/deployment/real-container/run-38778853803/`.
+The ordinary regression suite remains independent: 92 local Python cases passed,
+15 PostgreSQL/container cases passed on the disposable runner; 42 local Playwright
+cases passed and the packaged-evidence-only case skipped. TypeScript, Ruff and npm
+audit passed. The real-data workflow is opt-in, never an automatic satellite job on push.
+
+To repeat with Docker, combine `compose.yaml`, `docker/compose.verify.yaml` and
+`docker/compose.real.yaml`, using a fresh Compose project and an absolute verified model
+directory in `ECOSENTINEL_ISOLATED_MODEL`. The manual `real-analysis.yaml` workflow
+performs the full browser/export run with temporary `TEMP_ECOSENTINEL_MODEL_0` through
+`_7` base64 bundle chunks (40,000 characters each), its required SHA-256 input and a
+random 32-byte base64 `TEMP_ECOSENTINEL_OUTPUT_KEY`. Provision these only for a trusted
+commit, retrieve/decrypt the output, then delete the temporary secrets. Missing or
+unverified model assets fail closed before acquisition.
