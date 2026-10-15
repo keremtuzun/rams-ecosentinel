@@ -98,7 +98,14 @@ def test_real_subprocess_timeout_kills_child_and_blocks_exports(queue, monkeypat
     worker = configure(queue, monkeypatch, tmp_path)
     job_id = queue.submit(request())
     real_run = subprocess.run
+    real_popen = subprocess.Popen
+    children = []
     marker = tmp_path / "child.json"
+
+    def record_child(*args, **kwargs):
+        child = real_popen(*args, **kwargs)
+        children.append(child)
+        return child
 
     def short_lived_fixture(command, *, timeout, check):
         assert timeout == 900  # The serving wall limit is unchanged.
@@ -110,8 +117,10 @@ def test_real_subprocess_timeout_kills_child_and_blocks_exports(queue, monkeypat
         return real_run([sys.executable, "-c", script], timeout=0.8, check=check)
 
     monkeypatch.setattr(worker.subprocess, "run", short_lived_fixture)
+    monkeypatch.setattr(worker.subprocess, "Popen", record_child)
     worker.run_worker(once=True)
     assert marker.exists() and json.loads(marker.read_text())["pid"] > 0
+    assert len(children) == 1 and children[0].poll() is not None
     record = queue.get(job_id)
     assert record["status"] == "failed" and record["attempts"] == 1
     assert "15 minute" in record["error"]

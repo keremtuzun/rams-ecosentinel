@@ -6,12 +6,17 @@ import threading
 from contextlib import contextmanager
 from pathlib import Path
 
-from sqlalchemy import Column, Float, Integer, String, Text, create_engine, select, update
+from sqlalchemy import Column, Float, Integer, String, Text, create_engine, inspect, select, text, update
+from sqlalchemy.engine import make_url
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 from ecosentinel.common import ARTIFACTS, DataUnavailable, utcnow
 
 Base = declarative_base()
+
+
+class OwnershipLost(ValueError):
+    """An expired, duplicate or superseded worker cannot publish a transition."""
 
 
 class Job(Base):
@@ -25,19 +30,31 @@ class Job(Base):
     attempts = Column(Integer, nullable=False, default=0)
     lease_until = Column(Float, nullable=False, default=0)
     lease_owner = Column(String(36))
+    result_owner = Column(String(36))
 
 
 class Queue:
     def __init__(self, url=None):
         ARTIFACTS.mkdir(parents=True, exist_ok=True)
         url = url or os.environ.get("DATABASE_URL", f"sqlite:///{(ARTIFACTS / 'jobs.db').as_posix()}")
-        options = {"check_same_thread": False, "timeout": 30} if url.startswith("sqlite") else {}
+        options = (
+            {"check_same_thread": False, "timeout": 30}
+            if make_url(url).get_backend_name() == "sqlite"
+            else {}
+        )
         self.engine = create_engine(url, connect_args=options, pool_pre_ping=True)
         self.sessions = sessionmaker(self.engine)
         self.admission_lock = threading.Lock()
 
     def migrate(self):
-        Base.metadata.create_all(self.engine)
+        with self.engine.begin() as connection:
+            if self.engine.dialect.name == "postgresql":
+                connection.execute(text("SELECT pg_advisory_xact_lock(7729002)"))
+            elif self.engine.dialect.name == "sqlite":
+                connection.exec_driver_sql("BEGIN IMMEDIATE")
+            Base.metadata.create_all(connection)
+            if "result_owner" not in {column["name"] for column in inspect(connection).get_columns("jobs")}:
+                connection.execute(text("ALTER TABLE jobs ADD COLUMN result_owner VARCHAR(36)"))
 
     @contextmanager
     def session(self):
@@ -88,7 +105,20 @@ class Queue:
             "request": json.loads(row.request),
             "error": row.error,
             "attempts": row.attempts,
+            "result_owner": row.result_owner,
         }
+
+    def owned(self, job_id, owner):
+        with self.session() as session:
+            row = session.scalars(
+                select(Job).where(
+                    Job.id == job_id,
+                    Job.status == "running",
+                    Job.lease_owner == owner,
+                    Job.lease_until >= time.time(),
+                )
+            ).first()
+            return self.public(row) if row else None
 
     def claim(self):
         now, owner = time.time(), str(uuid.uuid4())
@@ -136,10 +166,41 @@ class Queue:
                     Job.lease_owner == owner,
                     Job.lease_until >= time.time(),
                 )
-                .values(status=status, error=error, lease_owner=None, lease_until=0, updated_at=utcnow())
+                .values(
+                    status=status,
+                    error=error,
+                    lease_owner=None,
+                    lease_until=0,
+                    result_owner=owner if status == "succeeded" else None,
+                    updated_at=utcnow(),
+                )
             )
             if result.rowcount != 1:
-                raise ValueError("Job ownership/state transition rejected")
+                raise OwnershipLost("Job ownership/state transition rejected")
+
+    def retry(self, job_id, owner, error):
+        from sqlalchemy import case
+
+        with self.session() as session:
+            result = session.execute(
+                update(Job)
+                .where(
+                    Job.id == job_id,
+                    Job.status == "running",
+                    Job.lease_owner == owner,
+                    Job.lease_until >= time.time(),
+                )
+                .values(
+                    status=case((Job.attempts < 2, "queued"), else_="failed"),
+                    error=error,
+                    lease_owner=None,
+                    lease_until=0,
+                    result_owner=None,
+                    updated_at=utcnow(),
+                )
+            )
+            if result.rowcount != 1:
+                raise OwnershipLost("Job ownership/state transition rejected")
 
     def import_result(self, request, report_dir):
         """CLI-only import of a completed local inference artifact; never a public endpoint."""

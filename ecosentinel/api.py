@@ -154,14 +154,20 @@ def create_app(queue=None):
     def job(job_id: str):
         result = get_job(job_id)
         if result["status"] == "succeeded":
-            result["report"] = read_json(ARTIFACTS / "jobs" / job_id / "report.json")
+            result["report"] = read_json(completed_path(job_id) / "report.json")
         return result
 
     def completed_path(job_id):
         record = get_job(job_id)
         if record["status"] != "succeeded":
             raise HTTPException(409, "Analysis has not succeeded")
-        return ARTIFACTS / "jobs" / job_id
+        path = ARTIFACTS / "jobs" / job_id
+        owner = record.get("result_owner")
+        if owner:
+            if str(UUID(owner)) != owner:
+                raise HTTPException(503, "Result ownership is invalid")
+            return path / owner
+        return path  # Legacy and checksum-verified CLI imports retain their original path.
 
     @app.get("/api/jobs/{job_id}/files/{name}")
     def artifact(job_id: str, name: str):

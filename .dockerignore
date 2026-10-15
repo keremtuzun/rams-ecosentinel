@@ -5,3 +5,12 @@ apps/web/node_modules
 apps/web/.next
 **/__pycache__
 .env
+**/.env
+**/.env.*
+!**/.env.example
+**/.vercel
+apps/backend/models
+apps/backend/runtime
+apps/backend/native_libraries
+apps/backend/ecosentinel
+data

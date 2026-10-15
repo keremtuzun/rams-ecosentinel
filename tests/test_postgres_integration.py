@@ -30,7 +30,7 @@ def queue():
         assert connection.scalar(text("SELECT PostGIS_Version()"))
         connection.execute(text(f'CREATE SCHEMA "{schema}"'))
     scoped = parsed.update_query_dict(
-        {"options": f"-csearch_path={schema},public -cstatement_timeout=15000 -clock_timeout=5000"}
+        {"options": f"-csearch_path={schema} -cstatement_timeout=15000 -clock_timeout=5000"}
     )
     result = Queue(scoped.render_as_string(hide_password=False))
     result.migrate()
