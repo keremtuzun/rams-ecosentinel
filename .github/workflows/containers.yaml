@@ -1,9 +1,24 @@
 name: Isolated Docker and PostgreSQL checks
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      model_bundle_sha256:
+        description: Optional private model SHA-256 for the real-data Docker run
+        type: string
+        default: ''
 permissions:
   contents: read
 jobs:
+  real-analysis:
+    if: github.event_name == 'workflow_dispatch' && inputs.model_bundle_sha256 != ''
+    uses: ./.github/workflows/real-analysis.yaml
+    with:
+      model_bundle_sha256: ${{ inputs.model_bundle_sha256 }}
+    secrets: inherit
   containers:
+    if: inputs.model_bundle_sha256 == ''
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:

@@ -1,5 +1,10 @@
 name: Opt-in real Sentinel ONNX Docker analysis
 on:
+  workflow_call:
+    inputs:
+      model_bundle_sha256:
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       model_bundle_sha256:
