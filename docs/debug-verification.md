@@ -62,7 +62,8 @@ Release commit, remote CI, both deployment IDs/states and actual cloud-run evide
 recorded in ignored `artifacts/deployment/debug/release-verification.json` after execution. Live results must be
 reported separately from local test passes.
 
-Containers/PostgreSQL, destructive production fault injection, production quota exhaustion
-and independent scientific validation are NOT_RUN. Client disconnects and refresh can be
+Containers/PostgreSQL now have separate [isolated verification](container-verification.md).
+Destructive production fault injection, production quota exhaustion and independent
+scientific validation are NOT_RUN. Client disconnects and refresh can be
 tested on the real job; deterministic server crash/retry/concurrency behavior is fixture
 evidence, not an induced production outage.

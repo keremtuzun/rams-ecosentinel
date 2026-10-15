@@ -171,8 +171,9 @@ PostgreSQL/PostGIS, API, separate bounded worker and frontend, and binds exposed
 loopback. Only the job queue uses PostgreSQL in this release; PostGIS spatial indexing is
 future work. The initial migration is in `database/migrations/001_jobs.sql`.
 
-**Docker was unavailable locally; container build and PostgreSQL behavior remain unverified.**
-The container path remains unverified. Local inference uses Python/Node and SQLite; the
+Docker/API/web builds and PostgreSQL queue behavior are verified on an isolated Ubuntu
+CI runner; see [docs/container-verification.md](docs/container-verification.md). Local
+Windows Docker/WSL remains uninstalled. Local inference uses Python/Node and SQLite; the
 cloud path below uses a separate stateless Python service, durable storage and Queues.
 Cloud results belong to a signed anonymous browser session, not a named user account.
 No public administrative mutation endpoints or file uploads are exposed.
